@@ -1,7 +1,8 @@
-import { Github, Code2, Trophy, Star, GitFork, Users, ExternalLink } from "lucide-react"
+import { Github, Trophy, Star, GitFork, Users, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import Image from 'next/image'
 import { getGitHubStats, getTopRepositories, getLanguageStats } from "../lib/github"
 
 export const revalidate = 3600 // revalidate every hour
@@ -28,11 +29,12 @@ export default async function Home() {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           <div className="relative group">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-75 group-hover:opacity-100 transition duration-300 blur"></div>
-            <img
+            {/* <img
               src="icon.jpg"
               alt="Profile"
               className="relative w-32 h-32 rounded-full border-2 border-gray-800"
-            />
+            /> */}
+            <Image src="/icon.jpg" alt="Profile" width={128} height={128} className="relative w-32 h-32 rounded-full border-2 border-gray-800" />
           </div>
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
