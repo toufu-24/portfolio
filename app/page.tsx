@@ -12,15 +12,13 @@ export default async function Home() {
   const topRepositories = await getTopRepositories()
   const languageStats = await getLanguageStats()
 
-  const colorMap: { [key: string]: string } = {
-    "C++": "bg-blue-500",
-    Python: "bg-yellow-500",
-    TypeScript: "bg-blue-400",
-    "C#": "bg-green-500",
-    JavaScript: "bg-yellow-400",
-    Java: "bg-red-500",
-    Other: "bg-gray-500"
-  };
+  async function loadColors() {
+    const response = await fetch('path/to/Colors.json');
+    const colorMap = await response.json();
+    // console.log(colorMap);
+  }
+  
+  loadColors();
   
   return (
     <main className="container mx-auto px-4 py-8">
