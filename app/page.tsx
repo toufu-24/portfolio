@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
-import { getGitHubStats, getTopRepositories, getLanguageStats } from "../lib/github"
+import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "../lib/github"
 
 export const revalidate = 3600 // revalidate every hour
 
@@ -11,15 +11,8 @@ export default async function Home() {
   const githubStats = await getGitHubStats()
   const topRepositories = await getTopRepositories()
   const languageStats = await getLanguageStats()
+  const languageColors = await getLanguageColors()
 
-  async function loadColors() {
-    const response = await fetch('path/to/Colors.json');
-    const colorMap = await response.json();
-    // console.log(colorMap);
-  }
-  
-  loadColors();
-  
   return (
     <main className="container mx-auto px-4 py-8">
       {/* Profile Section */}
@@ -27,11 +20,6 @@ export default async function Home() {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           <div className="relative group">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-75 group-hover:opacity-100 transition duration-300 blur"></div>
-            {/* <img
-              src="icon.jpg"
-              alt="Profile"
-              className="relative w-32 h-32 rounded-full border-2 border-gray-800"
-            /> */}
             <Image src="/icon.jpg" alt="Profile" width={128} height={128} className="relative w-32 h-32 rounded-full border-2 border-gray-800" />
           </div>
           <div className="text-center md:text-left">
@@ -61,7 +49,7 @@ export default async function Home() {
 
       {/* GitHub Stats Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <Card className="bg-gray-900 border-gray-800">
+      <Card className="bg-gray-900 border-gray-800">
           <CardContent className="pt-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-100">Language Statistics</h2>
             <div className="space-y-4">
@@ -73,8 +61,11 @@ export default async function Home() {
                   </div>
                   <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
                     <div
-                      className={`h-full bg-gradient-to-r ${colorMap[lang.name] || colorMap["Other"]} transition-all duration-500`}
-                      style={{ width: `${lang.percentage}%` }}
+                      className="h-full transition-all duration-500"
+                      style={{
+                        width: `${lang.percentage}%`,
+                        backgroundColor: languageColors[lang.name] || languageColors["Other"] || "#6e7681",
+                      }}
                     />
                   </div>
                 </div>
@@ -145,7 +136,13 @@ export default async function Home() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="bg-gray-800 hover:bg-gray-700 text-gray-300">
+                <Badge
+                    variant="secondary"
+                    className="text-gray-300"
+                    style={{
+                      backgroundColor: languageColors[project.language ?? "Other"] || "#6e7681",
+                    }}
+                  >
                     {project.language || "Unknown"}
                   </Badge>
                 </div>

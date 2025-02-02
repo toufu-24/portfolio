@@ -1,4 +1,6 @@
 import { Octokit } from "@octokit/rest"
+import fs from "fs/promises"
+import path from "path"
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
@@ -81,3 +83,15 @@ export async function getLanguageStats() {
   return sortedStats
 }
 
+export async function getLanguageColors(): Promise<{ [key: string]: string }> {
+  const colorFilePath = path.join(process.cwd(), "public", "Colors.json")
+  const colorData = await fs.readFile(colorFilePath, "utf-8")
+  const colors = JSON.parse(colorData)
+
+  const languageColors: { [key: string]: string } = {}
+  for (const [language, data] of Object.entries(colors)) {
+    languageColors[language] = (data as { color: string }).color
+  }
+
+  return languageColors
+}
