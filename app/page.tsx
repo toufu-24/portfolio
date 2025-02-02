@@ -12,16 +12,16 @@ export default async function Home() {
   const topRepositories = await getTopRepositories()
   const languageStats = await getLanguageStats()
 
-  const colorMap = {
-    "C++": "from-pink-500 to-rose-500",
-    Python: "from-blue-500 to-cyan-500",
-    TypeScript: "from-blue-400 to-indigo-500",
-    "C#": "from-purple-500 to-violet-500",
-    JavaScript: "from-yellow-400 to-orange-500",
-    Java: "from-red-500 to-orange-600",
-    Other: "from-gray-400 to-gray-600",
-  }
-
+  const colorMap: { [key: string]: string } = {
+    "C++": "bg-blue-500",
+    Python: "bg-yellow-500",
+    TypeScript: "bg-blue-400",
+    "C#": "bg-green-500",
+    JavaScript: "bg-yellow-400",
+    Java: "bg-red-500",
+    Other: "bg-gray-500"
+  };
+  
   return (
     <main className="container mx-auto px-4 py-8">
       {/* Profile Section */}
