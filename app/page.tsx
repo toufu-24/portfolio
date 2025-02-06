@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "../lib/github"
+import Link from 'next/link'
 
 export const revalidate = 3600 // revalidate every hour
 
@@ -151,7 +152,22 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      {/* Articles Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">Articles</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card className="bg-gray-900 border-gray-800 hover:border-gray-700 transition-colors">
+            <CardContent className="pt-6">
+              <h3 className="font-semibold text-gray-100 mb-2">Sample Article</h3>
+              <p className="text-gray-400 text-sm mb-4">This is a sample article rendered from markdown.</p>
+              <Link href="/articles/sample-article" className="text-blue-400 hover:text-blue-300 transition-colors">
+                Read more
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </main>
   )
 }
-
