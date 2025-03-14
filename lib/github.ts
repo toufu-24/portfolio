@@ -74,7 +74,7 @@ export async function getLanguageStats() {
 
   const sortedStats = Object.entries(languageStats)
     .sort(([, a], [, b]) => b - a)
-    .slice(0, 4)
+    .slice(0, 6)
     .map(([name, size]) => ({
       name,
       percentage: Math.round((size / totalSize) * 100),
