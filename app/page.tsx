@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
+import ProjectsList from "../components/ProjectsList"
 import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "../lib/github"
 
 export const revalidate = 3600 // revalidate every hour
@@ -24,7 +25,7 @@ export default async function Home() {
           </div>
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
-              toufu-24
+              toufu24
             </h1>
             <p className="text-gray-400 mb-4">Tokyo University of Agriculture and Technology</p>
             <div className="flex flex-wrap justify-center md:justify-start gap-2">
@@ -49,7 +50,7 @@ export default async function Home() {
 
       {/* GitHub Stats Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      <Card className="bg-gray-900 border-gray-800">
+        <Card className="bg-gray-900 border-gray-800">
           <CardContent className="pt-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-100">Language Statistics</h2>
             <div className="space-y-4">
@@ -118,7 +119,7 @@ export default async function Home() {
 
       {/* Projects Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-100">Top Projects</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">Top GitHub Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {topRepositories.map((project) => (
             <Card key={project.name} className="bg-gray-900 border-gray-800 hover:border-gray-700 transition-colors">
@@ -136,7 +137,7 @@ export default async function Home() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                <Badge
+                  <Badge
                     variant="secondary"
                     className="text-gray-300"
                     style={{
@@ -151,7 +152,11 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      {/* 制作物 Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">制作物・活動履歴</h2>
+        <ProjectsList />
+      </section>
     </main>
   )
 }
-
