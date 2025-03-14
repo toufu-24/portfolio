@@ -48,6 +48,14 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">About Me</h2>
+        <p className="text-gray-400">
+          東京農工大学で情報工学を学んでいる学生です．競技プログラミングが好きで，AtCoderによく参加しています．サークル活動ではゲーム制作などにも取り組んでいて，Unityを使ったゲーム制作を行っています．
+        </p>
+      </section>
+
       {/* GitHub Stats Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <Card className="bg-gray-900 border-gray-800">

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from './ui/card';
 import Modal from './ui/modal';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 type Project = {
   id: string;
@@ -18,14 +19,15 @@ const projects: Project[] = [
     id: '1',
     title: 'PCHIP-Image-Enlarger',
     thumbnail: 'projects/PCHIP-Image-Enlarger.png',
-    description: 'これはPCHIP-Image-Enlargerの簡単な説明です。',
+    description: '画像補間プログラム',
     detailPath: 'PCHIP-Image-Enlarger.md',
-  }, {
+  },
+  {
     id: '2',
-    title: 'RicfsaoShdsaot',
-    thumbnail: 'projects/projectA.png',
-    description: 'これはプロジェクトAの簡単な説明です。',
-    detailPath: 'projectA.md',
+    title: 'Substring-Word-Finder',
+    thumbnail: 'projects/Substring-Word-Finder.png',
+    description: '部分文字列検索ウェブアプリ',
+    detailPath: 'Substring-Word-Finder.md',
   },
 ];
 
@@ -88,7 +90,7 @@ const ProjectsList: React.FC = () => {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <ReactMarkdown components={{
+              <ReactMarkdown rehypePlugins={[rehypeRaw]} components={{
                 "h1": ({ node, ...props }) => <h1 className="text-3xl font-bold mt-4 mb-2" {...props} />,
                 "h2": ({ node, ...props }) => <h2 className="text-2xl font-bold mt-4 mb-2" {...props} />,
                 "h3": ({ node, ...props }) => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
