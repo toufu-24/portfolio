@@ -7,39 +7,38 @@ import rehypeRaw from 'rehype-raw';
 import { Badge } from './ui/badge';
 
 type Project = {
-  id: string;
   title: string;
   thumbnail: string;
   description: string;
   detailPath: string;
   tags: string[];
+  date: string;
 };
 
-// 下の方が上部に表示される
 const projects: Project[] = [
   {
-    id: '1',
-    title: 'PCHIP-Image-Enlarger',
-    thumbnail: 'projects/PCHIP-Image-Enlarger.png',
-    description: '画像補間プログラム',
-    detailPath: 'PCHIP-Image-Enlarger.md',
-    tags: ['個人開発'],
-  },
-  {
-    id: '2',
     title: '電脳サークル公式サイト',
     thumbnail: 'projects/Denno-Circle-Official-Site.png',
     description: '電脳サークルの公式ウェブサイト',
     detailPath: 'Denno-Circle-Official-Site.md',
     tags: ['チーム開発'],
+    date: '2023/03',
   },
   {
-    id: '3',
+    title: 'PCHIP-Image-Enlarger',
+    thumbnail: 'projects/PCHIP-Image-Enlarger.png',
+    description: '画像補間プログラム',
+    detailPath: 'PCHIP-Image-Enlarger.md',
+    tags: ['個人開発'],
+    date: '2023/05',
+  },
+  {
     title: 'Substring-Word-Finder',
     thumbnail: 'projects/Substring-Word-Finder.png',
     description: '部分文字列検索ウェブアプリ',
     detailPath: 'Substring-Word-Finder.md',
     tags: ['個人開発'],
+    date: '2023/05',
   },
 ];
 
@@ -76,9 +75,9 @@ const ProjectsList: React.FC = () => {
   return (
     <div>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {projects.slice().sort((a, b) => Number(b.id) - Number(a.id)).map((project) => (
+        {[...projects].reverse().map((project) => (
           <div
-            key={project.id}
+            key={project.title}
             onClick={() => openModal(project)}
             className="cursor-pointer hover:shadow-lg transition-shadow"
           >
@@ -90,6 +89,7 @@ const ProjectsList: React.FC = () => {
               />
               <div className="p-4">
                 <h3 className="text-lg font-bold">{project.title}</h3>
+                <p className="text-sm text-gray-500">{project.date}</p>
                 <div className="mt-2 flex space-x-2">
                   {project.tags.map(tag => {
                     const tagVariant = ({ "個人開発": "blue", "チーム開発": "green", "活動": "white" }[tag] || "outline") as "blue" | "green" | "white" | "outline";
