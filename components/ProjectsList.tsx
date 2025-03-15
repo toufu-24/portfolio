@@ -4,6 +4,7 @@ import { Card } from './ui/card';
 import Modal from './ui/modal';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { Badge } from './ui/badge';
 
 type Project = {
   id: string;
@@ -11,6 +12,7 @@ type Project = {
   thumbnail: string;
   description: string;
   detailPath: string;
+  tags: string[];
 };
 
 // 下の方が上部に表示される
@@ -21,6 +23,7 @@ const projects: Project[] = [
     thumbnail: 'projects/PCHIP-Image-Enlarger.png',
     description: '画像補間プログラム',
     detailPath: 'PCHIP-Image-Enlarger.md',
+    tags: ['個人開発'],
   },
   {
     id: '2',
@@ -28,6 +31,7 @@ const projects: Project[] = [
     thumbnail: 'projects/Denno-Circle-Official-Site.png',
     description: '電脳サークルの公式ウェブサイト',
     detailPath: 'Denno-Circle-Official-Site.md',
+    tags: ['チーム開発'],
   },
   {
     id: '3',
@@ -35,6 +39,7 @@ const projects: Project[] = [
     thumbnail: 'projects/Substring-Word-Finder.png',
     description: '部分文字列検索ウェブアプリ',
     detailPath: 'Substring-Word-Finder.md',
+    tags: ['個人開発'],
   },
 ];
 
@@ -85,7 +90,13 @@ const ProjectsList: React.FC = () => {
               />
               <div className="p-4">
                 <h3 className="text-lg font-bold">{project.title}</h3>
-                <p className="text-sm text-gray-600">{project.description}</p>
+                <div className="mt-2 flex space-x-2">
+                  {project.tags.map(tag => {
+                    const tagVariant = ({ "個人開発": "blue", "チーム開発": "green", "活動": "white" }[tag] || "outline") as "blue" | "green" | "white" | "outline";
+                    return <Badge key={tag} variant={tagVariant}>{tag}</Badge>;
+                  })}
+                </div>
+                <p className="text-sm text-gray-600 mt-2">{project.description}</p>
               </div>
             </Card>
           </div>
