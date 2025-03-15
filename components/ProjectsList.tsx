@@ -15,6 +15,8 @@ type Project = {
   date: string;
 };
 
+// 逆順に表示される
+// tagsには個人開発、チーム開発、活動を指定
 const projects: Project[] = [
   {
     title: '電脳サークル公式サイト',
@@ -39,6 +41,14 @@ const projects: Project[] = [
     detailPath: 'Substring-Word-Finder.md',
     tags: ['個人開発'],
     date: '2023/05',
+  },
+  {
+    title: '飛んでけ鉄拳！Rocket Puncher',
+    thumbnail: 'projects/RocketPunch.png',
+    description: 'RocketPunchを操作するVRゲーム',
+    detailPath: 'RocketPunch.md',
+    tags: ['チーム開発'],
+    date: '2024/10',
   },
 ];
 

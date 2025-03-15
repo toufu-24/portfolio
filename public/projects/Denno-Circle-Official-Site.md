@@ -2,6 +2,7 @@
 電脳サークルの公式サイトです．
 サークルメンバーとともに，サイトのデザインやコンテンツを作成しました．
 フロントエンドとしてNext.jsを用いています．
+私は主にフロントエンドの開発を担当しました．
 
 <span style="display: flex; gap: 8px;">
     <a href="https://github.com/TUAT-Denno/TUAT-denno-website">
