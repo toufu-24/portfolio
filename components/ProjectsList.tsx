@@ -24,6 +24,13 @@ const projects: Project[] = [
   },
   {
     id: '2',
+    title: '電脳サークル公式ウェブサイト',
+    thumbnail: 'projects/Substring-Word-Finder.png',
+    description: '部分文字列検索ウェブアプリ',
+    detailPath: 'Substring-Word-Finder.md',
+  },
+  {
+    id: '3',
     title: 'Substring-Word-Finder',
     thumbnail: 'projects/Substring-Word-Finder.png',
     description: '部分文字列検索ウェブアプリ',
