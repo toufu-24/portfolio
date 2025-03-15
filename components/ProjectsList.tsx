@@ -50,6 +50,14 @@ const projects: Project[] = [
     tags: ['チーム開発'],
     date: '2024/10',
   },
+  {
+    title: 'RicoShot',
+    thumbnail: 'projects/RicoShot.png',
+    description: 'シューティングゲーム',
+    detailPath: 'RicoShot.md',
+    tags: ['チーム開発'],
+    date: '2024/11',
+  },
 ];
 
 const ProjectsList: React.FC = () => {
