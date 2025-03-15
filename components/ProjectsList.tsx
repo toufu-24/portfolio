@@ -24,6 +24,13 @@ const projects: Project[] = [
   },
   {
     id: '2',
+    title: '電脳サークル公式サイト',
+    thumbnail: 'projects/Denno-Circle-Official-Site.png',
+    description: '電脳サークルの公式ウェブサイト',
+    detailPath: 'Denno-Circle-Official-Site.md',
+  },
+  {
+    id: '3',
     title: 'Substring-Word-Finder',
     thumbnail: 'projects/Substring-Word-Finder.png',
     description: '部分文字列検索ウェブアプリ',
