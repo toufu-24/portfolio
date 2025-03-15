@@ -13,6 +13,9 @@ Web アプリで成績やランキングを確認することができます．\
     <a href="https://github.com/tuatmcc/SchoolFestival2024_Unity">
         <img src="github-mark-white.png" alt="Web" width="32px">
     </a>
+    <a href="https://www.youtube.com/watch?v=7DXXWY4bBso&ab_channel=tuatmcc">
+        <img src="video.png" alt="YouTube" width="32px">
+    </a>
 </span>
 
 ![サムネイル](projects/RicoShot.png)
