@@ -89,8 +89,8 @@ export default async function Home() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-800 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-100">{githubStats.contributionsLastYear}</div>
-                  <div className="text-sm text-gray-400">Contributions (Last Year)</div>
+                  <div className="text-2xl font-bold text-gray-100">{githubStats.contributionsThisYear}</div>
+                  <div className="text-sm text-gray-400">Contributions (This Year)</div>
                 </div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-gray-100">{githubStats.publicRepos}</div>

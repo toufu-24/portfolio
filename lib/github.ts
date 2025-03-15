@@ -16,11 +16,11 @@ export async function getGitHubStats() {
     followers: user.data.followers,
     totalStars,
     totalForks,
-    contributionsLastYear: await getContributionsLastYear(),
+    contributionsThisYear: await getContributionsThisYear(),
   }
 }
 
-async function getContributionsLastYear() {
+async function getContributionsThisYear() {
   const query = `
     query {
       user(login: "toufu-24") {
