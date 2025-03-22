@@ -163,6 +163,15 @@ export default async function Home() {
                     {project.language || "Unknown"}
                   </Badge>
                 </div>
+                <a
+                  href={`https://github.com/toufu-24/${project.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors mt-4"
+                >
+                  <Github className="w-4 h-4" />
+                  View Repository
+                </a>
               </CardContent>
             </Card>
           ))}
