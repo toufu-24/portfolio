@@ -33,7 +33,6 @@ type TimelineItem = {
 };
 
 const timelineItems: TimelineItem[] = [
-  // { date: '2025-03', title: 'Development Phase', description: 'Start coding and integration.', type: 'development' },
   { date: '2004-02', title: '誕生', description: '', type: 'birth' },
   { date: '2022-04', title: '東京農工大学入学', description: '東京農工大学工学部知能情報システム工学科に入学', type: 'school' },
   { date: '2022-08', title: 'AtCoder Algorithm部門 灰色', description: 'AtCoder Algorithm部門に参加', type: 'trophy' },
@@ -51,7 +50,28 @@ const timelineItems: TimelineItem[] = [
   { date: '2025-03', title: 'AtCoder Heuristic部門 青色', description: 'AtCoder Heuristic部門でレート1600を達成', type: 'trophy' },
 ];
 
-const getIcon = (type: string) => {
+// タイトルに含まれる色に合わせた背景色を返す関数
+const getAtCoderColor = (title: string) => {
+  if (title.includes('灰色')) return 'bg-gray-500';
+  if (title.includes('茶色')) return 'bg-amber-600'; // カスタムカラーの場合はTailwindの設定が必要
+  if (title.includes('緑色')) return 'bg-green-500';
+  if (title.includes('水色')) return 'bg-blue-300';
+  if (title.includes('青色')) return 'bg-blue-500';
+  return 'bg-orange-500';
+};
+
+// タイトルに含まれる色に合わせたアイコンの色（text-クラス）を返す関数
+const getAtCoderIconColor = (title: string) => {
+  if (title.includes('灰色')) return 'text-gray-500';
+  if (title.includes('茶色')) return 'text-amber-600';
+  if (title.includes('緑色')) return 'text-green-500';
+  if (title.includes('水色')) return 'text-blue-300';
+  if (title.includes('青色')) return 'text-blue-500';
+  return 'text-orange-500';
+};
+
+// アイコンを返す関数（trophyの場合はタイトルも考慮）
+const getIcon = (type: string, title?: string) => {
   switch (type) {
     case 'planning':
       return <CalendarDays className="h-5 w-5 text-blue-500" />;
@@ -64,6 +84,10 @@ const getIcon = (type: string) => {
     case 'award':
       return <Award className="h-5 w-5 text-yellow-500" />;
     case 'trophy':
+      // タイトルがAtCoder関連の場合は色を変更
+      if (title && title.startsWith('AtCoder')) {
+        return <Trophy className={`h-5 w-5 ${getAtCoderIconColor(title)}`} />;
+      }
       return <Trophy className="h-5 w-5 text-orange-500" />;
     case 'medal':
       return <Medal className="h-5 w-5 text-yellow-500" />;
@@ -80,7 +104,13 @@ const getIcon = (type: string) => {
   }
 };
 
-const getColor = (type: string) => {
+// type とタイトルに応じた背景色を返す関数
+const getColor = (type: string, title: string) => {
+  // AtCoder関連(trophy)の場合はタイトルの色キーワードで判定
+  if (type === 'trophy' && title.startsWith('AtCoder')) {
+    return getAtCoderColor(title);
+  }
+  // それ以外は従来のマッピング
   switch (type) {
     case 'planning':
       return 'bg-blue-500';
@@ -92,8 +122,6 @@ const getColor = (type: string) => {
       return 'bg-red-500';
     case 'award':
       return 'bg-yellow-500';
-    case 'trophy':
-      return 'bg-orange-500';
     case 'medal':
       return 'bg-yellow-500';
     case 'star':
@@ -115,7 +143,7 @@ export default function Timeline() {
   return (
     <div className="max-w-3xl mx-auto p-8 rounded-lg border bg-card text-card-foreground shadow-sm grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       <div className="relative col-span-full">
-        {/* Vertical line */}
+        {/* 垂直のライン */}
         <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-red-500"></div>
 
         {sortedItems.map((item, index) => (
@@ -132,11 +160,11 @@ export default function Timeline() {
                 {index % 2 === 0 ? (
                   <>
                     <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                    {getIcon(item.type)}
+                    {getIcon(item.type, item.title)}
                   </>
                 ) : (
                   <>
-                    {getIcon(item.type)}
+                    {getIcon(item.type, item.title)}
                     <h3 className="text-xl font-bold text-white">{item.title}</h3>
                   </>
                 )}
@@ -148,12 +176,14 @@ export default function Timeline() {
             <div className="relative flex items-center justify-center">
               <div
                 className={`absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full ${getColor(
-                  item.type
+                  item.type,
+                  item.title
                 )} z-10`}
               ></div>
               <div
                 className={`absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full ${getColor(
-                  item.type
+                  item.type,
+                  item.title
                 )} opacity-20 animate-pulse`}
               ></div>
             </div>
