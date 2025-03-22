@@ -177,9 +177,9 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      {/* 制作物 Section */}
+      {/* Project Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-100">制作物・活動履歴</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">Projects</h2>
         <ProjectsList />
       </section>
     </main>
