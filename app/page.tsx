@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import ProjectsList from "../components/ProjectsList"
+import Timeline from "../components/Timeline"
 import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "../lib/github"
 
 export const revalidate = 3600 // revalidate every hour
@@ -55,6 +56,7 @@ export default async function Home() {
           東京農工大学の学生です．競技プログラミングが好きで，AtCoderによく参加しています．サークル活動ではゲーム制作などにも取り組んでいて，Unityを使ったゲーム制作を行っています．
         </p>
       </section>
+
 
       {/* GitHub Stats Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
@@ -123,6 +125,12 @@ export default async function Home() {
             </div>
           </CardContent>
         </Card>
+      </section>
+      
+      {/* Timeline Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">Timeline</h2>
+        <Timeline />
       </section>
 
       {/* Projects Section */}
