@@ -133,9 +133,9 @@ export default async function Home() {
         <Timeline />
       </section>
 
-      {/* Projects Section */}
+      {/* Top Repositories Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-100">Top GitHub Projects</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">Top GitHub Repositories</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {topRepositories.map((project) => (
             <Card key={project.name} className="bg-gray-900 border-gray-800 hover:border-gray-700 transition-colors">
