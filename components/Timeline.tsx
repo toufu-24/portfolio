@@ -53,7 +53,7 @@ const timelineItems: TimelineItem[] = [
 // タイトルに含まれる色に合わせた背景色を返す関数
 const getAtCoderColor = (title: string) => {
   if (title.includes('灰色')) return 'bg-gray-500';
-  if (title.includes('茶色')) return 'bg-amber-600'; // カスタムカラーの場合はTailwindの設定が必要
+  if (title.includes('茶色')) return 'bg-amber-600';
   if (title.includes('緑色')) return 'bg-green-500';
   if (title.includes('水色')) return 'bg-blue-300';
   if (title.includes('青色')) return 'bg-blue-500';
@@ -157,17 +157,17 @@ export default function Timeline() {
                   index % 2 === 0 ? 'justify-end' : 'justify-start'
                 }`}
               >
-                {index % 2 === 0 ? (
-                  <>
-                    <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                    {getIcon(item.type, item.title)}
-                  </>
-                ) : (
-                  <>
-                    {getIcon(item.type, item.title)}
-                    <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                  </>
-                )}
+{index % 2 === 0 ? (
+  <>
+    <h3 className="text-xl font-bold text-white">{item.title}</h3>
+    <span className="flex-shrink-0 w-8">{getIcon(item.type, item.title)}</span>
+  </>
+) : (
+  <>
+    <span className="flex-shrink-0 w-8">{getIcon(item.type, item.title)}</span>
+    <h3 className="text-xl font-bold text-white">{item.title}</h3>
+  </>
+)}
               </div>
               <p className="text-sm font-semibold text-white mb-2">{item.date}</p>
               <p className="text-white">{item.description}</p>
