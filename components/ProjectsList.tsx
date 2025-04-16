@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import { Card } from './ui/card';
 import Modal from './ui/modal';
@@ -20,7 +21,7 @@ type Project = {
 const projects: Project[] = [
   {
     title: '電脳サークル公式サイト',
-    thumbnail: 'projects/Denno-Circle-Official-Site.png',
+    thumbnail: '/projects/Denno-Circle-Official-Site.png',
     description: '電脳サークルの公式ウェブサイト',
     detailPath: 'Denno-Circle-Official-Site.md',
     tags: ['チーム開発'],
@@ -28,7 +29,7 @@ const projects: Project[] = [
   },
   {
     title: 'PCHIP-Image-Enlarger',
-    thumbnail: 'projects/PCHIP-Image-Enlarger.png',
+    thumbnail: '/projects/PCHIP-Image-Enlarger.png',
     description: '画像補間プログラム',
     detailPath: 'PCHIP-Image-Enlarger.md',
     tags: ['個人開発'],
@@ -36,7 +37,7 @@ const projects: Project[] = [
   },
   {
     title: 'Substring-Word-Finder',
-    thumbnail: 'projects/Substring-Word-Finder.png',
+    thumbnail: '/projects/Substring-Word-Finder.png',
     description: '部分文字列検索ウェブアプリ',
     detailPath: 'Substring-Word-Finder.md',
     tags: ['個人開発'],
@@ -44,7 +45,7 @@ const projects: Project[] = [
   },
   {
     title: '飛んでけ鉄拳！Rocket Puncher',
-    thumbnail: 'projects/RocketPunch.png',
+    thumbnail: '/projects/RocketPunch.png',
     description: 'RocketPunchを操作するVRゲーム',
     detailPath: 'RocketPunch.md',
     tags: ['チーム開発'],
@@ -52,7 +53,7 @@ const projects: Project[] = [
   },
   {
     title: 'RicoShot',
-    thumbnail: 'projects/RicoShot.png',
+    thumbnail: '/projects/RicoShot.png',
     description: 'シューティングゲーム',
     detailPath: 'RicoShot.md',
     tags: ['チーム開発'],
@@ -100,8 +101,10 @@ const ProjectsList: React.FC = () => {
             className="cursor-pointer hover:shadow-lg transition-shadow"
           >
             <Card>
-              <img
+              <Image
                 src={project.thumbnail}
+                width={500}
+                height={500}
                 alt={project.title}
                 className="w-full h-32 object-cover rounded-t"
               />
