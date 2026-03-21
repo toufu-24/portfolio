@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Sigma, BarChart3, Radio } from "lucide-react"
+import MiniCanvas from "./MiniCanvas"
 
 const researchAreas = [
   {
@@ -12,15 +13,17 @@ const researchAreas = [
       "スパース性を活用した効率的な信号復元手法の研究。少数の観測データから元の信号を高精度に再構成する理論と応用に取り組んでいます。",
     formula: "min ‖x‖₁  s.t. y = Φx",
     keywords: ["スパース復元", "RIP条件", "L1最小化", "基底追跡"],
+    canvas: "sparse" as const,
   },
   {
     icon: BarChart3,
     title: "数理最適化",
     titleEn: "Mathematical Optimization",
     description:
-      "凸最適化やスパース最適化を中心に、効率的なアルゴリズムの設計と解析を行っています。近接勾配法などの反復法に関心があります。",
+      "凸最適化やスパース最適化を中心に、効率的なアルゴリズムの設計と解析を行っています。近接勾配法や ADMM などの反復法に関心があります。",
     formula: "min f(x) + λ‖x‖₁",
     keywords: ["凸最適化", "近接勾配法", "ADMM", "ISTA/FISTA"],
+    canvas: "convergence" as const,
   },
   {
     icon: Radio,
@@ -30,14 +33,13 @@ const researchAreas = [
       "画像やセンサデータなどの信号に対する、効率的な処理・解析手法の研究。圧縮センシングの実応用にも取り組んでいます。",
     formula: "y = Ax + n",
     keywords: ["フーリエ変換", "ウェーブレット", "ノイズ除去", "画像再構成"],
+    canvas: "spectrum" as const,
   },
 ]
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
+  visible: { transition: { staggerChildren: 0.15 } },
 }
 
 const cardVariants = {
@@ -73,34 +75,41 @@ export default function ResearchInterests() {
             <motion.div
               key={area.titleEn}
               variants={cardVariants}
-              className="group relative rounded-xl border border-white/[0.06] bg-navy-800/50 p-6 backdrop-blur-sm
+              className="group relative rounded-xl border border-white/[0.06] bg-navy-800/50 overflow-hidden
                          hover:border-cyan-500/20 hover:glow-cyan transition-all duration-500"
             >
-              <div className="absolute top-4 right-4 font-mono text-[10px] text-cyan-500/20 leading-tight select-none">
-                {area.formula}
+              {/* Mini canvas visualisation */}
+              <div className="h-28 relative overflow-hidden">
+                <MiniCanvas variant={area.canvas} />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-navy-800/90" />
+                <div className="absolute top-3 right-3 font-mono text-[10px] text-cyan-500/25 leading-tight select-none">
+                  {area.formula}
+                </div>
               </div>
 
-              <div className="mb-4 w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center
-                              group-hover:bg-cyan-500/20 transition-colors duration-300">
-                <area.icon className="w-5 h-5 text-cyan-400" />
-              </div>
+              <div className="p-5 pt-3">
+                <div className="mb-3 w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center
+                                group-hover:bg-cyan-500/20 transition-colors duration-300">
+                  <area.icon className="w-4 h-4 text-cyan-400" />
+                </div>
 
-              <h3 className="text-lg font-bold text-gray-100 mb-1">{area.title}</h3>
-              <p className="text-xs font-mono text-cyan-500/50 mb-3">{area.titleEn}</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-4">
-                {area.description}
-              </p>
+                <h3 className="text-lg font-bold text-gray-100 mb-1">{area.title}</h3>
+                <p className="text-xs font-mono text-cyan-500/50 mb-3">{area.titleEn}</p>
+                <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                  {area.description}
+                </p>
 
-              <div className="flex flex-wrap gap-1.5">
-                {area.keywords.map((kw) => (
-                  <span
-                    key={kw}
-                    className="px-2 py-0.5 text-[11px] rounded-full border border-cyan-500/10
-                               text-cyan-400/60 bg-cyan-500/5 font-mono"
-                  >
-                    {kw}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-1.5">
+                  {area.keywords.map((kw) => (
+                    <span
+                      key={kw}
+                      className="px-2 py-0.5 text-[11px] rounded-full border border-cyan-500/10
+                                 text-cyan-400/60 bg-cyan-500/5 font-mono"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

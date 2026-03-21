@@ -4,12 +4,45 @@ import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import SparseSignalScene from "./SparseSignalScene"
 
+const floatingFormulas = [
+  { text: "min ‖x‖₁", x: "8%", y: "18%", delay: 0.3, size: "text-xs" },
+  { text: "s.t. Ax = b", x: "5%", y: "25%", delay: 0.6, size: "text-[11px]" },
+  { text: "∇²f(x) ≻ 0", x: "85%", y: "15%", delay: 0.9, size: "text-xs" },
+  { text: "xₖ₊₁ = T(xₖ)", x: "82%", y: "24%", delay: 0.5, size: "text-[10px]" },
+  { text: "O(n log n)", x: "10%", y: "70%", delay: 1.0, size: "text-[10px]" },
+  { text: "δ₂ₛ < √2 − 1", x: "88%", y: "72%", delay: 0.7, size: "text-[11px]" },
+  { text: "min-cut = max-flow", x: "6%", y: "48%", delay: 1.2, size: "text-[9px]" },
+  { text: "prox_{λ‖·‖₁}", x: "86%", y: "50%", delay: 0.4, size: "text-[10px]" },
+]
+
 export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <SparseSignalScene />
 
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0e1a] z-10 pointer-events-none" />
+
+      {/* Floating formulas */}
+      {floatingFormulas.map((f, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0, 0.12, 0.06, 0.12, 0],
+            y: [0, -8, 0, 8, 0],
+          }}
+          transition={{
+            delay: f.delay,
+            duration: 8 + i * 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className={`absolute z-10 font-mono ${f.size} text-cyan-400/10 select-none pointer-events-none whitespace-nowrap`}
+          style={{ left: f.x, top: f.y }}
+        >
+          {f.text}
+        </motion.span>
+      ))}
 
       <div className="relative z-20 text-center px-4">
         <motion.div
@@ -26,9 +59,13 @@ export default function Hero() {
           <p className="text-lg md:text-xl text-gray-400 mb-2">
             東京農工大学 工学部 知能情報システム工学科
           </p>
-          <p className="text-sm md:text-base text-gray-500 font-mono">
-            Mathematical Optimization / Signal Processing / Compressed Sensing
-          </p>
+          <div className="flex items-center justify-center gap-3 text-sm md:text-base text-gray-500 font-mono">
+            <span className="text-cyan-500/40">⟨</span>
+            <span>Discrete &amp; Continuous Optimization</span>
+            <span className="text-cyan-500/40">|</span>
+            <span>Signal Processing</span>
+            <span className="text-cyan-500/40">⟩</span>
+          </div>
         </motion.div>
 
         <motion.div

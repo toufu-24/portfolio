@@ -30,15 +30,25 @@ export default async function Home() {
             About
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider mb-8">自己紹介</p>
-          <p className="text-gray-400 leading-relaxed">
+          <p className="text-gray-400 leading-relaxed mb-6">
             東京農工大学 工学部 知能情報システム工学科の学生です。
             圧縮センシング・数理最適化・信号処理を専門とし、スパース性を利用した効率的な信号復元手法の研究に取り組んでいます。
-            競技プログラミング（AtCoder）にも積極的に参加しており、アルゴリズムとヒューリスティック両部門で活動しています。
           </p>
+          <p className="text-gray-400 leading-relaxed mb-8">
+            競技プログラミング（AtCoder）にも積極的に参加しており、アルゴリズム・ヒューリスティック両部門で活動しています。
+            離散最適化の組合せ的な問題解決と、連続最適化の数理的なアプローチ、その両面から「最適化」に向き合っています。
+          </p>
+          <div className="flex items-center justify-center gap-4 text-xs font-mono text-cyan-500/30">
+            <span>discrete ∪ continuous</span>
+            <span className="text-cyan-500/15">|</span>
+            <span>theory ∩ practice</span>
+            <span className="text-cyan-500/15">|</span>
+            <span>sparse → optimal</span>
+          </div>
         </div>
       </section>
 
-      <WaveformDivider variant="sine" />
+      <WaveformDivider variant="convergence" />
 
       <ResearchInterests />
 
@@ -46,11 +56,11 @@ export default async function Home() {
 
       <Publications />
 
-      <WaveformDivider variant="sine" />
+      <WaveformDivider variant="graph" />
 
       <Timeline />
 
-      <WaveformDivider variant="sparse" />
+      <WaveformDivider variant="convergence" />
 
       <Skills />
 
@@ -58,7 +68,7 @@ export default async function Home() {
 
       <ProjectsList />
 
-      <WaveformDivider variant="sparse" />
+      <WaveformDivider variant="graph" />
 
       <GitHubActivity
         stats={githubStats}
