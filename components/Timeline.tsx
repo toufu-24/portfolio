@@ -46,17 +46,17 @@ const getAtCoderColor = (title: string): string => {
 const getIcon = (type: string, title: string) => {
   switch (type) {
     case "birth":
-      return <Cake className="w-4 h-4" />
+      return <Cake className="w-5 h-5" />
     case "school":
-      return title.includes("入学") ? <School className="w-4 h-4" /> : <GraduationCap className="w-4 h-4" />
+      return title.includes("入学") ? <School className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />
     case "trophy":
-      return <Trophy className="w-4 h-4" />
+      return <Trophy className="w-5 h-5" />
     case "award":
-      return <Award className="w-4 h-4" />
+      return <Award className="w-5 h-5" />
     case "research":
-      return <GraduationCap className="w-4 h-4" />
+      return <GraduationCap className="w-5 h-5" />
     default:
-      return <Award className="w-4 h-4" />
+      return <Award className="w-5 h-5" />
   }
 }
 
@@ -118,7 +118,7 @@ export default function Timeline() {
                   {showYear && (
                     <motion.div variants={itemVariants} className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
                       <div className="w-10 h-10 rounded-full border border-cyan-500/20 bg-navy-800 flex items-center justify-center">
-                        <span className="text-xs font-mono font-bold text-cyan-400">{year}</span>
+                        <span className="text-sm font-mono font-bold text-cyan-400">{year}</span>
                       </div>
                     </motion.div>
                   )}
@@ -139,14 +139,14 @@ export default function Timeline() {
                         <span style={{ color: dotColor }} className="opacity-70">
                           {getIcon(item.type, item.title)}
                         </span>
-                        <h3 className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
+                        <h3 className="text-base font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
                           {item.title}
                         </h3>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono text-gray-600">{item.date}</span>
+                        <span className="text-sm font-mono text-gray-600">{item.date}</span>
                         {item.description && (
-                          <span className="text-xs text-gray-500">{item.description}</span>
+                          <span className="text-sm text-gray-500">{item.description}</span>
                         )}
                       </div>
                     </div>
