@@ -1,7 +1,7 @@
+import { Octokit } from "@octokit/rest"
 import colors from "@/public/Colors.json"
 
-const GITHUB_USERNAME = "toufu-24"
-const GITHUB_API_BASE = "https://api.github.com"
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
 const fallbackStats = {
   publicRepos: 0,
@@ -11,71 +11,17 @@ const fallbackStats = {
   totalContributions: 0,
 }
 
-type GitHubUser = {
-  public_repos: number
-  followers: number
-}
-
-type GitHubRepo = {
-  name: string
-  description: string | null
-  stargazers_count: number | null
-  forks_count: number | null
-  language: string | null
-  html_url: string
-  size: number | null
-}
-
-function getGitHubToken() {
-  return process.env.GITHUB_TOKEN
-}
-
-function getGitHubHeaders() {
-  const token = getGitHubToken()
-
-  return {
-    Accept: "application/vnd.github+json",
-    "Content-Type": "application/json",
-    "User-Agent": "portfolio-site",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  }
-}
-
-async function fetchGitHub<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${GITHUB_API_BASE}${path}`, {
-    ...init,
-    headers: {
-      ...getGitHubHeaders(),
-      ...init?.headers,
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`)
-  }
-
-  return response.json() as Promise<T>
-}
-
-async function fetchAllUserRepos() {
-  return fetchGitHub<GitHubRepo[]>(
-    `/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`,
-  )
-}
-
 export async function getGitHubStats() {
   try {
-    const [user, repos] = await Promise.all([
-      fetchGitHub<GitHubUser>(`/users/${GITHUB_USERNAME}`),
-      fetchAllUserRepos(),
-    ])
+    const user = await octokit.rest.users.getByUsername({ username: "toufu-24" })
+    const repos = await octokit.rest.repos.listForUser({ username: "toufu-24", sort: "updated", per_page: 100 })
 
-    const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0)
-    const totalForks = repos.reduce((acc, repo) => acc + (repo.forks_count || 0), 0)
+    const totalStars = repos.data.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0)
+    const totalForks = repos.data.reduce((acc, repo) => acc + (repo.forks_count || 0), 0)
 
     return {
-      publicRepos: user.public_repos,
-      followers: user.followers,
+      publicRepos: user.data.public_repos,
+      followers: user.data.followers,
       totalStars,
       totalForks,
       totalContributions: await getTotalContributions(),
@@ -87,42 +33,19 @@ export async function getGitHubStats() {
 }
 
 async function getTotalContributions() {
-  const token = getGitHubToken()
-
-  if (!token) {
-    return 0
-  }
-
   try {
-    const createdAtResponse = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: getGitHubHeaders(),
-      body: JSON.stringify({
-        query: `
-          query($login: String!) {
-            user(login: $login) {
-              createdAt
-            }
-          }
-        `,
-        variables: { login: GITHUB_USERNAME },
-      }),
-    })
-
-    if (!createdAtResponse.ok) {
-      throw new Error(`GitHub GraphQL request failed: ${createdAtResponse.status} ${createdAtResponse.statusText}`)
+    const createdAtQuery = `
+      query {
+        user(login: "toufu-24") {
+          createdAt
+        }
+      }
+    `
+    const { user } = await octokit.graphql(createdAtQuery) as {
+      user: { createdAt: string }
     }
 
-    const createdAtJson = await createdAtResponse.json() as {
-      data?: { user?: { createdAt: string } }
-      errors?: Array<{ message: string }>
-    }
-
-    if (createdAtJson.errors?.length || !createdAtJson.data?.user?.createdAt) {
-      throw new Error(createdAtJson.errors?.[0]?.message || "Missing createdAt")
-    }
-
-    const createdAt = new Date(createdAtJson.data.user.createdAt)
+    const createdAt = new Date(user.createdAt)
     const now = new Date()
     let total = 0
 
@@ -133,64 +56,39 @@ async function getTotalContributions() {
         now.getTime(),
       ))
 
-      const response = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: getGitHubHeaders(),
-        body: JSON.stringify({
-          query: `
-            query($login: String!, $from: DateTime!, $to: DateTime!) {
-              user(login: $login) {
-                contributionsCollection(from: $from, to: $to) {
-                  contributionCalendar {
-                    totalContributions
-                  }
-                }
-              }
-            }
-          `,
-          variables: {
-            login: GITHUB_USERNAME,
-            from: from.toISOString(),
-            to: to.toISOString(),
-          },
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error(`GitHub GraphQL request failed: ${response.status} ${response.statusText}`)
-      }
-
-      const json = await response.json() as {
-        data?: {
-          user?: {
-            contributionsCollection?: {
-              contributionCalendar?: {
-                totalContributions: number
+      const query = `
+        query($from: DateTime!, $to: DateTime!) {
+          user(login: "toufu-24") {
+            contributionsCollection(from: $from, to: $to) {
+              contributionCalendar {
+                totalContributions
               }
             }
           }
         }
-        errors?: Array<{ message: string }>
+      `
+      const response = await octokit.graphql(query, {
+        from: from.toISOString(),
+        to: to.toISOString(),
+      }) as {
+        user: { contributionsCollection: { contributionCalendar: { totalContributions: number } } }
       }
-
-      if (json.errors?.length) {
-        throw new Error(json.errors[0].message)
-      }
-
-      total += json.data?.user?.contributionsCollection?.contributionCalendar?.totalContributions || 0
+      total += response.user.contributionsCollection.contributionCalendar.totalContributions
       from = to
     }
 
     return total
-  } catch (e) {
-    console.error("Failed to fetch GitHub contributions:", e)
+  } catch {
     return 0
   }
 }
 
 export async function getTopRepositories() {
   try {
-    const data = await fetchAllUserRepos()
+    const { data } = await octokit.rest.repos.listForUser({
+      username: "toufu-24",
+      per_page: 100,
+    })
 
     return data
       .sort((a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0))
@@ -211,7 +109,10 @@ export async function getTopRepositories() {
 
 export async function getLanguageStats() {
   try {
-    const data = await fetchAllUserRepos()
+    const { data } = await octokit.rest.repos.listForUser({
+      username: "toufu-24",
+      per_page: 100,
+    })
 
     const languageStats: { [key: string]: number } = {}
     let totalSize = 0
@@ -219,12 +120,8 @@ export async function getLanguageStats() {
     for (const repo of data) {
       if (repo.language) {
         languageStats[repo.language] = (languageStats[repo.language] || 0) + (repo.size || 0)
-        totalSize += repo.size || 0
+        totalSize += (repo.size || 0)
       }
-    }
-
-    if (totalSize === 0) {
-      return []
     }
 
     return Object.entries(languageStats)
