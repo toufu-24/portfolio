@@ -7,22 +7,22 @@ import MiniCanvas from "./MiniCanvas"
 const researchAreas = [
   {
     icon: Sigma,
-    title: "圧縮センシング",
-    titleEn: "Compressed Sensing",
+    title: "スパース最適化",
+    titleEn: "Sparse Optimization",
     description:
-      "スパース性を活用した効率的な信号復元手法の研究。少数の観測データから元の信号を高精度に再構成する理論と応用に取り組んでいます。",
-    formula: "min ‖x‖₁  s.t. y = Φx",
-    keywords: ["スパース復元", "RIP条件", "L1最小化", "基底追跡"],
+      "スパース性を活用した最適化問題の定式化と求解。凸緩和（ℓ₁/ℓ₂,₁ 正則化）や貪欲法など、多様なアプローチの理論的性質と実用性能を比較・研究しています。",
+    formula: "min ‖x‖₂,₁  s.t. y = Ax",
+    keywords: ["凸最適化", "ℓ₂/ℓ₁正則化", "RIP条件", "スパース復元"],
     canvas: "sparse" as const,
   },
   {
     icon: BarChart3,
-    title: "数理最適化",
-    titleEn: "Mathematical Optimization",
+    title: "最適化アルゴリズム",
+    titleEn: "Optimization Algorithms",
     description:
-      "凸最適化やスパース最適化を中心に、効率的なアルゴリズムの設計と解析を行っています。近接勾配法や ADMM などの反復法に関心があります。",
-    formula: "min f(x) + λ‖x‖₁",
-    keywords: ["凸最適化", "近接勾配法", "ADMM", "ISTA/FISTA"],
+      "OMP・BOMPを基盤とした貪欲法の設計と解析。提案手法 SOMP では、評価関数の最大化を最大部分配列問題に帰着させ、動的計画法による効率的なブロック選択を実現しました。",
+    formula: "f(I) = Σ cₙ² − λ|I|",
+    keywords: ["OMP", "SOMP", "動的計画法", "Kadane's Algorithm"],
     canvas: "convergence" as const,
   },
   {
@@ -30,9 +30,9 @@ const researchAreas = [
     title: "信号処理",
     titleEn: "Signal Processing",
     description:
-      "画像やセンサデータなどの信号に対する、効率的な処理・解析手法の研究。圧縮センシングの実応用にも取り組んでいます。",
-    formula: "y = Ax + n",
-    keywords: ["フーリエ変換", "ウェーブレット", "ノイズ除去", "画像再構成"],
+      "無線通信・レーダー・画像解析などに現れるブロック構造を持つ信号の復元と処理。少数の観測から高精度に信号を復元する圧縮センシングの枠組みを中心に研究しています。",
+    formula: "y = Ax + v,  x: block-sparse",
+    keywords: ["圧縮センシング", "ブロックスパース", "信号復元", "ノイズ除去"],
     canvas: "spectrum" as const,
   },
 ]

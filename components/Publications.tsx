@@ -70,6 +70,11 @@ export default function Publications() {
                       <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${config.color}`}>
                         {config.label}
                       </span>
+                      {pub.presentation && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border text-cyan-400 bg-cyan-500/10 border-cyan-500/20">
+                          {pub.presentation === "oral" ? "Oral" : "Poster"}
+                        </span>
+                      )}
                       <span className="text-xs font-mono text-gray-500">{pub.year}</span>
                     </div>
 

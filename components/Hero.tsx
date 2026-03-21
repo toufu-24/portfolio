@@ -5,14 +5,14 @@ import { ChevronDown } from "lucide-react"
 import SparseSignalScene from "./SparseSignalScene"
 
 const floatingFormulas = [
-  { text: "min ‖x‖₁", x: "8%", y: "18%", delay: 0.3, size: "text-xs" },
-  { text: "s.t. Ax = b", x: "5%", y: "25%", delay: 0.6, size: "text-[11px]" },
-  { text: "∇²f(x) ≻ 0", x: "85%", y: "15%", delay: 0.9, size: "text-xs" },
-  { text: "xₖ₊₁ = T(xₖ)", x: "82%", y: "24%", delay: 0.5, size: "text-[10px]" },
-  { text: "O(n log n)", x: "10%", y: "70%", delay: 1.0, size: "text-[10px]" },
+  { text: "y = Ax + v", x: "8%", y: "18%", delay: 0.3, size: "text-xs" },
+  { text: "f(I) = Σ cₙ² − λ|I|", x: "5%", y: "26%", delay: 0.6, size: "text-[11px]" },
+  { text: "supp(x) = ∪[lᵦ, rᵦ]", x: "85%", y: "15%", delay: 0.9, size: "text-xs" },
+  { text: "dₙ = cₙ² − λ", x: "82%", y: "24%", delay: 0.5, size: "text-[10px]" },
+  { text: "λ = Q₃ + β · IQR", x: "10%", y: "70%", delay: 1.0, size: "text-[10px]" },
   { text: "δ₂ₛ < √2 − 1", x: "88%", y: "72%", delay: 0.7, size: "text-[11px]" },
-  { text: "min-cut = max-flow", x: "6%", y: "48%", delay: 1.2, size: "text-[9px]" },
-  { text: "prox_{λ‖·‖₁}", x: "86%", y: "50%", delay: 0.4, size: "text-[10px]" },
+  { text: "arg max Σ dₙ", x: "6%", y: "48%", delay: 1.2, size: "text-[10px]" },
+  { text: "min ‖x‖₂,₁", x: "86%", y: "50%", delay: 0.4, size: "text-[10px]" },
 ]
 
 export default function Hero() {
@@ -51,17 +51,17 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="font-mono text-cyan-400/80 text-sm tracking-[0.3em] uppercase mb-4">
-            Compressed Sensing &amp; Optimization
+            Optimization &amp; Signal Processing
           </p>
           <h1 className="text-5xl md:text-7xl font-bold mb-4 text-gradient">
-            toufu24
+            藤野 創
           </h1>
           <p className="text-lg md:text-xl text-gray-400 mb-2">
             東京農工大学 工学部 知能情報システム工学科
           </p>
           <div className="flex items-center justify-center gap-3 text-sm md:text-base text-gray-500 font-mono">
             <span className="text-cyan-500/40">⟨</span>
-            <span>Discrete &amp; Continuous Optimization</span>
+            <span>Optimization</span>
             <span className="text-cyan-500/40">|</span>
             <span>Signal Processing</span>
             <span className="text-cyan-500/40">⟩</span>

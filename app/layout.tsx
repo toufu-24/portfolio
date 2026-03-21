@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Noto_Sans_JP, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import type React from "react"
+import Header from "@/components/Header"
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -16,9 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "toufu24 | Compressed Sensing & Mathematical Optimization",
+  title: "toufu24 | Optimization & Signal Processing",
   description:
-    "東京農工大学 — 圧縮センシング・数理最適化・信号処理の研究ポートフォリオ",
+    "東京農工大学 — 最適化・信号処理の研究ポートフォリオ",
 }
 
 export default function RootLayout({
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${jetbrainsMono.variable} font-sans bg-[#0a0e1a] text-gray-100 antialiased`}
       >
+        <Header />
         {children}
       </body>
     </html>
