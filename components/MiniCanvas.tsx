@@ -3,9 +3,11 @@
 import { useRef, useEffect } from "react"
 
 type MiniCanvasProps = {
-  variant: "sparse" | "convergence" | "spectrum"
+  variant: "sparse" | "convergence" | "spectrum" | "segtree"
   className?: string
 }
+
+type STNode = { x: number; y: number; d: number; l: number; r: number }
 
 export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -105,6 +107,75 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
       }
     }
 
+    const BT_DEPTH = 4
+    const BT_SIZE = (1 << (BT_DEPTH + 1)) - 1
+    const btNodes: { x: number; y: number; d: number; phase: number }[] = []
+
+    const buildBT = (i: number, d: number, xl: number, xr: number) => {
+      if (d > BT_DEPTH) return
+      const py = h * 0.1
+      btNodes[i] = {
+        x: (xl + xr) / 2,
+        y: py + (h - py * 2) * (d / BT_DEPTH),
+        d,
+        phase: Math.random() * Math.PI * 2,
+      }
+      buildBT(i * 2 + 1, d + 1, xl, (xl + xr) / 2)
+      buildBT(i * 2 + 2, d + 1, (xl + xr) / 2, xr)
+    }
+    buildBT(0, 0, w * 0.03, w * 0.97)
+
+    const drawSegTree = (t: number) => {
+      ctx.clearRect(0, 0, w, h)
+
+      for (let i = 0; i < BT_SIZE; i++) {
+        const n = btNodes[i]
+        if (!n) continue
+        for (const ci of [i * 2 + 1, i * 2 + 2]) {
+          const cn = btNodes[ci]
+          if (!cn) continue
+          const flow = 0.5 + Math.sin(t * 0.6 + i * 0.7 + ci * 0.3) * 0.5
+          const a = 0.04 + flow * 0.08
+
+          ctx.beginPath()
+          ctx.strokeStyle = `rgba(52, 211, 153, ${a})`
+          ctx.lineWidth = 0.7
+          ctx.moveTo(n.x, n.y)
+          ctx.lineTo(cn.x, cn.y)
+          ctx.stroke()
+
+          const ft = (t * 0.4 + i * 0.5) % 1
+          const fx = n.x + (cn.x - n.x) * ft
+          const fy = n.y + (cn.y - n.y) * ft
+          ctx.beginPath()
+          ctx.arc(fx, fy, 1, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(52, 211, 153, ${flow * 0.2})`
+          ctx.fill()
+        }
+      }
+
+      for (let i = 0; i < BT_SIZE; i++) {
+        const n = btNodes[i]
+        if (!n) continue
+        const pulse = 0.5 + Math.sin(t * 0.8 + n.phase) * 0.4
+        const r = 1.8 + (BT_DEPTH - n.d) * 0.6
+        const a = (0.12 + pulse * 0.18)
+
+        const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3)
+        glow.addColorStop(0, `rgba(52, 211, 153, ${a * 0.4})`)
+        glow.addColorStop(1, "rgba(52, 211, 153, 0)")
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2)
+        ctx.fillStyle = glow
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, r, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(52, 211, 153, ${a})`
+        ctx.fill()
+      }
+    }
+
     const drawSpectrum = (t: number) => {
       ctx.clearRect(0, 0, w, h)
       const binCount = 40
@@ -155,6 +226,9 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
           break
         case "spectrum":
           drawSpectrum(t)
+          break
+        case "segtree":
+          drawSegTree(t)
           break
       }
       animId = requestAnimationFrame(animate)

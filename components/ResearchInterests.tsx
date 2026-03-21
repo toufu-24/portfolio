@@ -45,7 +45,7 @@ const researchAreas = [
     titleEn: "Algorithms & Data Structures",
     description:
       "問題の構造を見抜き、適切なアルゴリズムとデータ構造を選択・設計することに関心があります。AtCoder での実践を通じて、計算量を意識した効率的な問題解決力を磨いています。",
-    canvas: "spectrum" as const,
+    canvas: "segtree" as const,
     accent: {
       text: "text-emerald-400",
       bg: "bg-emerald-500",
