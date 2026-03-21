@@ -142,14 +142,14 @@ export default function SparseSignalScene() {
       t: number,
     ) => {
       const headIdx = Math.floor((t * 18) % path.length)
-      const trailLen = 80
+      const trailLen = Math.min(80, headIdx)
 
       ctx.lineCap = "round"
       ctx.lineJoin = "round"
 
       for (let i = 0; i < trailLen - 1; i++) {
-        const idx = (headIdx - i + path.length) % path.length
-        const nextIdx = (headIdx - i - 1 + path.length) % path.length
+        const idx = headIdx - i
+        const nextIdx = headIdx - i - 1
         const p = path[idx]
         const np = path[nextIdx]
         const fade = 1 - i / trailLen
