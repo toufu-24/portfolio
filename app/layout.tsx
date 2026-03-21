@@ -17,9 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "toufu24 | Optimization & Signal Processing",
-  description:
-    "東京農工大学 — 最適化・信号処理の研究ポートフォリオ",
+  title: "So Fujino's Website",
 }
 
 export default function RootLayout({

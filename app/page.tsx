@@ -39,7 +39,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <WaveformDivider variant="convergence" />
+      <WaveformDivider variant="sine" />
 
       <ResearchInterests />
 
@@ -51,7 +51,7 @@ export default async function Home() {
 
       <Timeline />
 
-      <WaveformDivider variant="convergence" />
+      <WaveformDivider variant="sine" />
 
       <ProjectsList />
 
