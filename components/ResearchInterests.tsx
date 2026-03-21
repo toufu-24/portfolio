@@ -11,7 +11,6 @@ const researchAreas = [
     titleEn: "Sparse Optimization",
     description:
       "スパース性を活用した最適化問題の定式化と求解。凸緩和（ℓ₁/ℓ₂,₁ 正則化）や貪欲法など、多様なアプローチの理論的性質と実用性能を比較・研究しています。",
-    formula: "min ‖x‖₂,₁  s.t. y = Ax",
     keywords: ["凸最適化", "ℓ₂/ℓ₁正則化", "RIP条件", "スパース復元"],
     canvas: "sparse" as const,
   },
@@ -21,7 +20,6 @@ const researchAreas = [
     titleEn: "Optimization Algorithms",
     description:
       "OMP・BOMPを基盤とした貪欲法の設計と解析。提案手法 SOMP では、評価関数の最大化を最大部分配列問題に帰着させ、動的計画法による効率的なブロック選択を実現しました。",
-    formula: "f(I) = Σ cₙ² − λ|I|",
     keywords: ["OMP", "SOMP", "動的計画法", "Kadane's Algorithm"],
     canvas: "convergence" as const,
   },
@@ -31,7 +29,6 @@ const researchAreas = [
     titleEn: "Signal Processing",
     description:
       "無線通信・レーダー・画像解析などに現れるブロック構造を持つ信号の復元と処理。少数の観測から高精度に信号を復元する圧縮センシングの枠組みを中心に研究しています。",
-    formula: "y = Ax + v,  x: block-sparse",
     keywords: ["圧縮センシング", "ブロックスパース", "信号復元", "ノイズ除去"],
     canvas: "spectrum" as const,
   },
@@ -58,7 +55,7 @@ export default function ResearchInterests() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Research Interests
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">研究分野</p>
@@ -78,13 +75,9 @@ export default function ResearchInterests() {
               className="group relative rounded-xl border border-white/[0.06] bg-navy-800/50 overflow-hidden
                          hover:border-cyan-500/20 hover:glow-cyan transition-all duration-500"
             >
-              {/* Mini canvas visualisation */}
-              <div className="h-28 relative overflow-hidden">
+              <div className="h-32 relative overflow-hidden">
                 <MiniCanvas variant={area.canvas} />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-navy-800/90" />
-                <div className="absolute top-3 right-3 font-mono text-[10px] text-cyan-500/25 leading-tight select-none">
-                  {area.formula}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy-800/95" />
               </div>
 
               <div className="p-5 pt-3">

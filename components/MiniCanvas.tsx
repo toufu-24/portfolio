@@ -39,7 +39,8 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
     const drawSparse = (t: number) => {
       ctx.clearRect(0, 0, w, h)
       const reconstructProgress = ((Math.sin(t * 0.3) + 1) / 2) * 0.9 + 0.1
-      const barW = w / bars.length * 0.6
+      const barW = (w / bars.length) * 0.6
+
       for (const bar of bars) {
         bar.current += (bar.target * reconstructProgress - bar.current) * 0.05
         const x = bar.pos * w
@@ -47,14 +48,21 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
         if (bh > 1) {
           const grad = ctx.createLinearGradient(x, h, x, h - bh)
           grad.addColorStop(0, "rgba(0, 212, 255, 0.02)")
-          grad.addColorStop(1, "rgba(0, 212, 255, 0.25)")
+          grad.addColorStop(1, "rgba(0, 212, 255, 0.3)")
           ctx.fillStyle = grad
           ctx.fillRect(x, h - bh, barW, bh)
+
+          if (bar.target > 0.3) {
+            const glow = ctx.createRadialGradient(x + barW / 2, h - bh, 0, x + barW / 2, h - bh, 4)
+            glow.addColorStop(0, "rgba(0, 212, 255, 0.3)")
+            glow.addColorStop(1, "rgba(0, 212, 255, 0)")
+            ctx.beginPath()
+            ctx.arc(x + barW / 2, h - bh, 4, 0, Math.PI * 2)
+            ctx.fillStyle = glow
+            ctx.fill()
+          }
         }
       }
-      ctx.font = "7px monospace"
-      ctx.fillStyle = "rgba(0, 212, 255, 0.15)"
-      ctx.fillText("reconstruct", 2, 8)
     }
 
     const drawConvergence = (t: number) => {
@@ -62,8 +70,10 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
       const pad = 4
 
       ctx.beginPath()
-      ctx.strokeStyle = "rgba(0, 212, 255, 0.2)"
-      ctx.lineWidth = 1
+      ctx.strokeStyle = "rgba(0, 212, 255, 0.25)"
+      ctx.lineWidth = 1.2
+      ctx.lineCap = "round"
+      ctx.lineJoin = "round"
       for (let x = 0; x <= w - pad * 2; x++) {
         const p = x / (w - pad * 2)
         const noise = Math.sin(p * 25 + t * 0.5) * 0.1 * Math.exp(-p * 3)
@@ -74,21 +84,25 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
       }
       ctx.stroke()
 
-      // Iteration markers
       for (let i = 1; i <= 5; i++) {
         const p = i / 6
         const val = Math.exp(-p * 3.5)
         const px = pad + p * (w - pad * 2)
         const py = h * 0.9 - val * h * 0.75
+
+        const glow = ctx.createRadialGradient(px, py, 0, px, py, 6)
+        glow.addColorStop(0, "rgba(167, 139, 250, 0.35)")
+        glow.addColorStop(1, "rgba(167, 139, 250, 0)")
         ctx.beginPath()
-        ctx.arc(px, py, 1.5, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(167, 139, 250, 0.3)"
+        ctx.arc(px, py, 6, 0, Math.PI * 2)
+        ctx.fillStyle = glow
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(px, py, 2, 0, Math.PI * 2)
+        ctx.fillStyle = "rgba(167, 139, 250, 0.5)"
         ctx.fill()
       }
-
-      ctx.font = "7px monospace"
-      ctx.fillStyle = "rgba(0, 212, 255, 0.15)"
-      ctx.fillText("f(xₖ)→min", 2, 8)
     }
 
     const drawSpectrum = (t: number) => {
@@ -107,22 +121,41 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
           Math.exp((-d3 * d3) / 0.008) * 0.3 +
           Math.sin(t * 0.5 + i * 0.5) * 0.05
         const bh = magnitude * h * 0.75
-        const a = 0.08 + magnitude * 0.2
-        ctx.fillStyle = `rgba(0, 212, 255, ${a})`
-        ctx.fillRect(i * binW + 1, h - bh, binW - 2, bh)
-      }
+        const a = 0.08 + magnitude * 0.25
 
-      ctx.font = "7px monospace"
-      ctx.fillStyle = "rgba(0, 212, 255, 0.15)"
-      ctx.fillText("|X(ω)|", 2, 8)
+        const grad = ctx.createLinearGradient(i * binW + 1, h, i * binW + 1, h - bh)
+        grad.addColorStop(0, `rgba(0, 212, 255, ${a * 0.1})`)
+        grad.addColorStop(1, `rgba(0, 212, 255, ${a})`)
+        ctx.fillStyle = grad
+        ctx.fillRect(i * binW + 1, h - bh, binW - 2, bh)
+
+        if (magnitude > 0.3) {
+          const glow = ctx.createRadialGradient(
+            i * binW + binW / 2, h - bh, 0,
+            i * binW + binW / 2, h - bh, 5,
+          )
+          glow.addColorStop(0, `rgba(0, 212, 255, ${magnitude * 0.3})`)
+          glow.addColorStop(1, "rgba(0, 212, 255, 0)")
+          ctx.beginPath()
+          ctx.arc(i * binW + binW / 2, h - bh, 5, 0, Math.PI * 2)
+          ctx.fillStyle = glow
+          ctx.fill()
+        }
+      }
     }
 
     const animate = (time: number) => {
       const t = time * 0.001
       switch (variant) {
-        case "sparse": drawSparse(t); break
-        case "convergence": drawConvergence(t); break
-        case "spectrum": drawSpectrum(t); break
+        case "sparse":
+          drawSparse(t)
+          break
+        case "convergence":
+          drawConvergence(t)
+          break
+        case "spectrum":
+          drawSpectrum(t)
+          break
       }
       animId = requestAnimationFrame(animate)
     }

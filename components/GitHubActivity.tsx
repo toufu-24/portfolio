@@ -8,7 +8,7 @@ type GitHubStats = {
   followers: number
   totalStars: number
   totalForks: number
-  contributionsThisYear: number
+  totalContributions: number
 }
 
 type LanguageStat = {
@@ -33,7 +33,7 @@ type Props = {
 }
 
 const statItems = (stats: GitHubStats) => [
-  { label: "Contributions", value: stats.contributionsThisYear, icon: Code2 },
+  { label: "Contributions", value: stats.totalContributions, icon: Code2 },
   { label: "Repositories", value: stats.publicRepos, icon: Github },
   { label: "Stars", value: stats.totalStars, icon: Star },
   { label: "Followers", value: stats.followers, icon: Users },
@@ -60,7 +60,7 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             GitHub Activity
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">GitHub</p>

@@ -111,7 +111,7 @@ export default function ProjectsList() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Projects
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">プロジェクト</p>
@@ -176,7 +176,7 @@ export default function ProjectsList() {
                 rehypePlugins={[rehypeRaw]}
                 components={{
                   h1: ({ ...props }) => (
-                    <h1 className="text-2xl font-bold mt-4 mb-2 text-gradient" {...props} />
+                    <h1 className="text-2xl font-bold mt-4 mb-2 text-white" {...props} />
                   ),
                   h2: ({ ...props }) => (
                     <h2 className="text-xl font-bold mt-4 mb-2 text-gray-200" {...props} />

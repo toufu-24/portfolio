@@ -9,7 +9,7 @@ const fallbackStats = {
   followers: 0,
   totalStars: 0,
   totalForks: 0,
-  contributionsThisYear: 0,
+  totalContributions: 0,
 }
 
 export async function getGitHubStats() {
@@ -25,7 +25,7 @@ export async function getGitHubStats() {
       followers: user.data.followers,
       totalStars,
       totalForks,
-      contributionsThisYear: await getContributionsThisYear(),
+      totalContributions: await getTotalContributions(),
     }
   } catch (e) {
     console.error("Failed to fetch GitHub stats:", e)
@@ -33,23 +33,52 @@ export async function getGitHubStats() {
   }
 }
 
-async function getContributionsThisYear() {
+async function getTotalContributions() {
   try {
-    const query = `
+    const createdAtQuery = `
       query {
         user(login: "toufu-24") {
-          contributionsCollection {
-            contributionCalendar {
-              totalContributions
-            }
-          }
+          createdAt
         }
       }
     `
-    const response = await octokit.graphql(query) as {
-      user: { contributionsCollection: { contributionCalendar: { totalContributions: number } } }
+    const { user } = await octokit.graphql(createdAtQuery) as {
+      user: { createdAt: string }
     }
-    return response.user.contributionsCollection.contributionCalendar.totalContributions
+
+    const createdAt = new Date(user.createdAt)
+    const now = new Date()
+    let total = 0
+
+    let from = new Date(createdAt)
+    while (from < now) {
+      const to = new Date(Math.min(
+        new Date(from.getFullYear() + 1, from.getMonth(), from.getDate()).getTime(),
+        now.getTime(),
+      ))
+
+      const query = `
+        query($from: DateTime!, $to: DateTime!) {
+          user(login: "toufu-24") {
+            contributionsCollection(from: $from, to: $to) {
+              contributionCalendar {
+                totalContributions
+              }
+            }
+          }
+        }
+      `
+      const response = await octokit.graphql(query, {
+        from: from.toISOString(),
+        to: to.toISOString(),
+      }) as {
+        user: { contributionsCollection: { contributionCalendar: { totalContributions: number } } }
+      }
+      total += response.user.contributionsCollection.contributionCalendar.totalContributions
+      from = to
+    }
+
+    return total
   } catch {
     return 0
   }

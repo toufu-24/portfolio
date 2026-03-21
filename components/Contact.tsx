@@ -35,7 +35,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Contact
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">連絡先</p>
@@ -70,7 +70,7 @@ export default function Contact() {
         </motion.div>
 
         <div className="text-center text-xs text-gray-600 font-mono">
-          <p>&copy; {new Date().getFullYear()} toufu24. Built with Next.js</p>
+          <p>&copy; {new Date().getFullYear()} So Fujino. Built with Next.js</p>
         </div>
       </div>
     </footer>

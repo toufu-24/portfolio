@@ -66,7 +66,7 @@ export default function Header() {
           <nav className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-[11px] font-mono font-medium text-cyan-400/80 hover:text-cyan-300 transition-colors duration-200 tracking-widest uppercase"
+              className="text-[11px] font-mono font-medium text-white/80 hover:text-white transition-colors duration-200 tracking-widest uppercase"
             >
               So Fujino's Website
             </button>
@@ -115,7 +115,7 @@ export default function Header() {
           <div className="px-5 h-14 flex items-center justify-between">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-[11px] font-mono font-medium text-cyan-400/80 tracking-widest uppercase"
+              className="text-[11px] font-mono font-medium text-white/80 tracking-widest uppercase"
             >
               So Fujino's Website
             </button>

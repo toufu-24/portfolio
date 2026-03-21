@@ -34,7 +34,7 @@ export default function Publications() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Publications
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">業績</p>
