@@ -1,197 +1,162 @@
-import React from 'react';
+"use client"
+
+import { motion } from "framer-motion"
 import {
-  CalendarDays,
-  Rocket,
-  PenTool,
-  Code,
-  CheckCircle,
   Award,
   Trophy,
-  Medal,
-  Star,
-  Crown,
   Cake,
   School,
-} from 'lucide-react';
+  GraduationCap,
+} from "lucide-react"
 
 type TimelineItem = {
-  date: string;
-  title: string;
-  description: string;
-  type:
-    | 'planning'
-    | 'design'
-    | 'development'
-    | 'release'
-    | 'award'
-    | 'trophy'
-    | 'medal'
-    | 'star'
-    | 'crown'
-    | 'birth'
-    | 'school';
-};
+  date: string
+  title: string
+  description: string
+  type: "birth" | "school" | "trophy" | "award" | "research"
+}
 
 const timelineItems: TimelineItem[] = [
-  { date: '2004-02', title: '誕生', description: '', type: 'birth' },
-  { date: '2022-04', title: '東京農工大学入学', description: '東京農工大学工学部知能情報システム工学科に入学', type: 'school' },
-  { date: '2022-08', title: 'AtCoder Algorithm部門 灰色', description: 'AtCoder Algorithm部門に参加', type: 'trophy' },
-  { date: '2022-10', title: 'AtCoder Heuristic部門 灰色', description: 'AtCoder Heuristic部門に参加', type: 'trophy' },
-  { date: '2022-10', title: 'AtCoder Algorithm部門 茶色', description: 'AtCoder Algorithm部門でレート400を達成', type: 'trophy' },
-  { date: '2023-02', title: 'AtCoder Heuristic部門 茶色', description: 'AtCoder Heuristic部門でレート400を達成', type: 'trophy' },
-  { date: '2023-04', title: '数理情報工学コース配属', description: '', type: 'school' },
-  { date: '2023-08', title: 'AtCoder Algorithm部門 緑色', description: 'AtCoder Algorithm部門でレート800を達成', type: 'trophy' },
-  { date: '2023-08', title: 'AtCoder Heuristic部門 緑色', description: 'AtCoder Heuristic部門でレート800を達成', type: 'trophy' },
-  { date: '2024-06', title: 'AtCoder Algorithm部門 水色', description: 'AtCoder Algorithm部門でレート1200を達成', type: 'trophy' },
-  { date: '2024-07', title: 'AtCoder Heuristic部門 水色', description: 'AtCoder Heuristic部門でレート1200を達成', type: 'trophy' },
-  { date: '2024-07', title: 'CGエンジニア検定エキスパート 合格', description: '', type: 'award' },
-  { date: '2024-07', title: '画像処理エンジニア検定エキスパート 合格', description: '', type: 'award' },
-  { date: '2024-07', title: '応用情報技術者試験 合格', description: '', type: 'award' },
-  { date: '2025-03', title: 'AtCoder Heuristic部門 青色', description: 'AtCoder Heuristic部門でレート1600を達成', type: 'trophy' },
-];
+  { date: "2004-02", title: "誕生", description: "", type: "birth" },
+  { date: "2022-04", title: "東京農工大学入学", description: "工学部 知能情報システム工学科", type: "school" },
+  { date: "2022-08", title: "AtCoder Algorithm 灰色", description: "AtCoder Algorithm部門に参加", type: "trophy" },
+  { date: "2022-10", title: "AtCoder Heuristic 灰色", description: "AtCoder Heuristic部門に参加", type: "trophy" },
+  { date: "2022-10", title: "AtCoder Algorithm 茶色", description: "レート 400 達成", type: "trophy" },
+  { date: "2023-02", title: "AtCoder Heuristic 茶色", description: "レート 400 達成", type: "trophy" },
+  { date: "2023-04", title: "数理情報工学コース配属", description: "", type: "school" },
+  { date: "2023-08", title: "AtCoder Algorithm 緑色", description: "レート 800 達成", type: "trophy" },
+  { date: "2023-08", title: "AtCoder Heuristic 緑色", description: "レート 800 達成", type: "trophy" },
+  { date: "2024-06", title: "AtCoder Algorithm 水色", description: "レート 1200 達成", type: "trophy" },
+  { date: "2024-07", title: "AtCoder Heuristic 水色", description: "レート 1200 達成", type: "trophy" },
+  { date: "2024-07", title: "CG エンジニア検定エキスパート 合格", description: "", type: "award" },
+  { date: "2024-07", title: "画像処理エンジニア検定エキスパート 合格", description: "", type: "award" },
+  { date: "2024-07", title: "応用情報技術者試験 合格", description: "", type: "award" },
+  { date: "2025-03", title: "AtCoder Heuristic 青色", description: "レート 1600 達成", type: "trophy" },
+]
 
-// タイトルに含まれる色に合わせた背景色を返す関数
-const getAtCoderColor = (title: string) => {
-  if (title.includes('灰色')) return 'bg-gray-500';
-  if (title.includes('茶色')) return 'bg-amber-600';
-  if (title.includes('緑色')) return 'bg-green-500';
-  if (title.includes('水色')) return 'bg-blue-300';
-  if (title.includes('青色')) return 'bg-blue-500';
-  return 'bg-orange-500';
-};
+const getAtCoderColor = (title: string): string => {
+  if (title.includes("灰色")) return "#808080"
+  if (title.includes("茶色")) return "#b45309"
+  if (title.includes("緑色")) return "#22c55e"
+  if (title.includes("水色")) return "#67e8f9"
+  if (title.includes("青色")) return "#3b82f6"
+  return "#00d4ff"
+}
 
-// タイトルに含まれる色に合わせたアイコンの色（text-クラス）を返す関数
-const getAtCoderIconColor = (title: string) => {
-  if (title.includes('灰色')) return 'text-gray-500';
-  if (title.includes('茶色')) return 'text-amber-600';
-  if (title.includes('緑色')) return 'text-green-500';
-  if (title.includes('水色')) return 'text-blue-300';
-  if (title.includes('青色')) return 'text-blue-500';
-  return 'text-orange-500';
-};
-
-// アイコンを返す関数（trophyの場合はタイトルも考慮）
-const getIcon = (type: string, title?: string) => {
+const getIcon = (type: string, title: string) => {
   switch (type) {
-    case 'planning':
-      return <CalendarDays className="h-5 w-5 text-blue-500" />;
-    case 'design':
-      return <PenTool className="h-5 w-5 text-purple-500" />;
-    case 'development':
-      return <Code className="h-5 w-5 text-green-500" />;
-    case 'release':
-      return <Rocket className="h-5 w-5 text-red-500" />;
-    case 'award':
-      return <Award className="h-5 w-5 text-yellow-500" />;
-    case 'trophy':
-      // タイトルがAtCoder関連の場合は色を変更
-      if (title && title.startsWith('AtCoder')) {
-        return <Trophy className={`h-5 w-5 ${getAtCoderIconColor(title)}`} />;
-      }
-      return <Trophy className="h-5 w-5 text-orange-500" />;
-    case 'medal':
-      return <Medal className="h-5 w-5 text-yellow-500" />;
-    case 'star':
-      return <Star className="h-5 w-5 text-yellow-400" />;
-    case 'crown':
-      return <Crown className="h-5 w-5 text-purple-500" />;
-    case 'birth':
-      return <Cake className="h-5 w-5 text-pink-500" />;
-    case 'school':
-      return <School className="h-5 w-5 text-teal-500" />;
+    case "birth":
+      return <Cake className="w-4 h-4" />
+    case "school":
+      return title.includes("入学") ? <School className="w-4 h-4" /> : <GraduationCap className="w-4 h-4" />
+    case "trophy":
+      return <Trophy className="w-4 h-4" />
+    case "award":
+      return <Award className="w-4 h-4" />
+    case "research":
+      return <GraduationCap className="w-4 h-4" />
     default:
-      return <CheckCircle className="h-5 w-5 text-gray-500" />;
+      return <Award className="w-4 h-4" />
   }
-};
+}
 
-// type とタイトルに応じた背景色を返す関数
-const getColor = (type: string, title: string) => {
-  // AtCoder関連(trophy)の場合はタイトルの色キーワードで判定
-  if (type === 'trophy' && title.startsWith('AtCoder')) {
-    return getAtCoderColor(title);
-  }
-  // それ以外は従来のマッピング
-  switch (type) {
-    case 'planning':
-      return 'bg-blue-500';
-    case 'design':
-      return 'bg-purple-500';
-    case 'development':
-      return 'bg-green-500';
-    case 'release':
-      return 'bg-red-500';
-    case 'award':
-      return 'bg-yellow-500';
-    case 'medal':
-      return 'bg-yellow-500';
-    case 'star':
-      return 'bg-yellow-400';
-    case 'crown':
-      return 'bg-purple-500';
-    case 'birth':
-      return 'bg-pink-500';
-    case 'school':
-      return 'bg-teal-500';
-    default:
-      return 'bg-gray-500';
-  }
-};
+const getDotColor = (type: string, title: string): string => {
+  if (type === "trophy" && title.includes("AtCoder")) return getAtCoderColor(title)
+  if (type === "birth") return "#ec4899"
+  if (type === "school") return "#14b8a6"
+  if (type === "award") return "#eab308"
+  if (type === "research") return "#00d4ff"
+  return "#00d4ff"
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+}
 
 export default function Timeline() {
-  const sortedItems = [...timelineItems].reverse();
+  const sortedItems = [...timelineItems].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  )
+
+  let currentYear = ""
 
   return (
-    <div className="max-w-3xl mx-auto p-8 rounded-lg border bg-card text-card-foreground shadow-sm grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-      <div className="relative col-span-full">
-        {/* 垂直のライン */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-red-500"></div>
+    <section id="timeline" className="py-24 px-4">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+            Timeline
+          </h2>
+          <p className="text-gray-500 text-sm font-mono tracking-wider">経歴</p>
+        </motion.div>
 
-        {sortedItems.map((item, index) => (
-          <div
-            key={index}
-            className={`mb-12 flex ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+        <div className="relative">
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/30 via-cyan-500/10 to-transparent" />
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ staggerChildren: 0.06 }}
+            className="space-y-1"
           >
-            <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8'}`}>
-              <div
-                className={`mb-1 flex items-center gap-2 ${
-                  index % 2 === 0 ? 'justify-end' : 'justify-start'
-                }`}
-              >
-{index % 2 === 0 ? (
-  <>
-    <h3 className="text-xl font-bold text-white">{item.title}</h3>
-    <span className="flex-shrink-0 w-8">{getIcon(item.type, item.title)}</span>
-  </>
-) : (
-  <>
-    <span className="flex-shrink-0 w-8">{getIcon(item.type, item.title)}</span>
-    <h3 className="text-xl font-bold text-white">{item.title}</h3>
-  </>
-)}
-              </div>
-              <p className="text-sm font-semibold text-white mb-2">{item.date}</p>
-              <p className="text-white">{item.description}</p>
-            </div>
+            {sortedItems.map((item, i) => {
+              const year = item.date.slice(0, 4)
+              const showYear = year !== currentYear
+              currentYear = year
+              const dotColor = getDotColor(item.type, item.title)
 
-            <div className="relative flex items-center justify-center">
-              <div
-                className={`absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full ${getColor(
-                  item.type,
-                  item.title
-                )} z-10`}
-              ></div>
-              <div
-                className={`absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full ${getColor(
-                  item.type,
-                  item.title
-                )} opacity-20 animate-pulse`}
-              ></div>
-            </div>
+              return (
+                <div key={`${item.title}-${i}`}>
+                  {showYear && (
+                    <motion.div variants={itemVariants} className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
+                      <div className="w-10 h-10 rounded-full border border-cyan-500/20 bg-navy-800 flex items-center justify-center">
+                        <span className="text-xs font-mono font-bold text-cyan-400">{year}</span>
+                      </div>
+                    </motion.div>
+                  )}
 
-            <div className="w-1/2"></div>
-          </div>
-        ))}
+                  <motion.div
+                    variants={itemVariants}
+                    className="group flex items-start gap-4 py-2 pl-1"
+                  >
+                    <div className="relative flex-shrink-0 mt-1.5">
+                      <div
+                        className="w-3 h-3 rounded-full border-2 z-10 relative"
+                        style={{ borderColor: dotColor, backgroundColor: `${dotColor}33` }}
+                      />
+                    </div>
+
+                    <div className="flex-1 pb-2">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span style={{ color: dotColor }} className="opacity-70">
+                          {getIcon(item.type, item.title)}
+                        </span>
+                        <h3 className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono text-gray-600">{item.date}</span>
+                        {item.description && (
+                          <span className="text-xs text-gray-500">{item.description}</span>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              )
+            })}
+          </motion.div>
+        </div>
       </div>
-    </div>
-  );
+    </section>
+  )
 }

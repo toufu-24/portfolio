@@ -4,83 +4,109 @@ import path from "path"
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
+const fallbackStats = {
+  publicRepos: 0,
+  followers: 0,
+  totalStars: 0,
+  totalForks: 0,
+  contributionsThisYear: 0,
+}
+
 export async function getGitHubStats() {
-  const user = await octokit.rest.users.getByUsername({ username: "toufu-24" })
-  const repos = await octokit.rest.repos.listForUser({ username: "toufu-24", sort: "updated", per_page: 100 })
+  try {
+    const user = await octokit.rest.users.getByUsername({ username: "toufu-24" })
+    const repos = await octokit.rest.repos.listForUser({ username: "toufu-24", sort: "updated", per_page: 100 })
 
-  const totalStars = repos.data.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
-  const totalForks = repos.data.reduce((acc, repo) => acc + (repo.forks_count || 0), 0);
+    const totalStars = repos.data.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0)
+    const totalForks = repos.data.reduce((acc, repo) => acc + (repo.forks_count || 0), 0)
 
-  return {
-    publicRepos: user.data.public_repos,
-    followers: user.data.followers,
-    totalStars,
-    totalForks,
-    contributionsThisYear: await getContributionsThisYear(),
+    return {
+      publicRepos: user.data.public_repos,
+      followers: user.data.followers,
+      totalStars,
+      totalForks,
+      contributionsThisYear: await getContributionsThisYear(),
+    }
+  } catch (e) {
+    console.error("Failed to fetch GitHub stats:", e)
+    return fallbackStats
   }
 }
 
 async function getContributionsThisYear() {
-  const query = `
-    query {
-      user(login: "toufu-24") {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
+  try {
+    const query = `
+      query {
+        user(login: "toufu-24") {
+          contributionsCollection {
+            contributionCalendar {
+              totalContributions
+            }
           }
         }
       }
+    `
+    const response = await octokit.graphql(query) as {
+      user: { contributionsCollection: { contributionCalendar: { totalContributions: number } } }
     }
-  `
-  const response = await octokit.graphql(query) as { user: { contributionsCollection: { contributionCalendar: { totalContributions: number } } } };
-  return response.user.contributionsCollection.contributionCalendar.totalContributions;
+    return response.user.contributionsCollection.contributionCalendar.totalContributions
+  } catch {
+    return 0
+  }
 }
 
 export async function getTopRepositories() {
-  const { data } = await octokit.rest.repos.listForUser({
-    username: "toufu-24",
-    per_page: 100, // できるだけ多く取得する
-  });
+  try {
+    const { data } = await octokit.rest.repos.listForUser({
+      username: "toufu-24",
+      per_page: 100,
+    })
 
-  return data
-    .sort((a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0)) // スター数でソート
-    .slice(0, 3) // 上位3件を取得
-    .map((repo) => ({
-      name: repo.name,
-      description: repo.description,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      language: repo.language,
-      url: repo.html_url,
-    }));
+    return data
+      .sort((a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0))
+      .slice(0, 3)
+      .map((repo) => ({
+        name: repo.name,
+        description: repo.description,
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        language: repo.language,
+        url: repo.html_url,
+      }))
+  } catch (e) {
+    console.error("Failed to fetch top repositories:", e)
+    return []
+  }
 }
 
-
 export async function getLanguageStats() {
-  const { data } = await octokit.rest.repos.listForUser({
-    username: "toufu-24",
-    per_page: 100,
-  })
+  try {
+    const { data } = await octokit.rest.repos.listForUser({
+      username: "toufu-24",
+      per_page: 100,
+    })
 
-  const languageStats: { [key: string]: number } = {}; // インデックスシグネチャを追加
-  let totalSize = 0
+    const languageStats: { [key: string]: number } = {}
+    let totalSize = 0
 
-  for (const repo of data) {
-    if (repo.language) {
-      languageStats[repo.language] = (languageStats[repo.language] || 0) + (repo.size || 0)
-      totalSize += (repo.size || 0)
+    for (const repo of data) {
+      if (repo.language) {
+        languageStats[repo.language] = (languageStats[repo.language] || 0) + (repo.size || 0)
+        totalSize += (repo.size || 0)
+      }
     }
+
+    return Object.entries(languageStats)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 6)
+      .map(([name, size]) => ({
+        name,
+        percentage: Math.round((size / totalSize) * 100),
+      }))
+  } catch (e) {
+    console.error("Failed to fetch language stats:", e)
+    return []
   }
-
-  const sortedStats = Object.entries(languageStats)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 6)
-    .map(([name, size]) => ({
-      name,
-      percentage: Math.round((size / totalSize) * 100),
-    }))
-
-  return sortedStats
 }
 
 export async function getLanguageColors(): Promise<{ [key: string]: string }> {

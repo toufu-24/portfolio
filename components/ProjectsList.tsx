@@ -1,145 +1,203 @@
-"use client";
-import Image from "next/image";
-import React, { useState, useEffect } from 'react';
-import { Card } from './ui/card';
-import Modal from './ui/modal';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import { Badge } from './ui/badge';
+"use client"
+
+import Image from "next/image"
+import React, { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import Modal from "./ui/modal"
+import ReactMarkdown from "react-markdown"
+import rehypeRaw from "rehype-raw"
 
 type Project = {
-  title: string;
-  thumbnail: string;
-  description: string;
-  detailPath: string;
-  tags: string[];
-  date: string;
-};
+  title: string
+  thumbnail: string
+  description: string
+  detailPath: string
+  tags: string[]
+  date: string
+}
 
-// 逆順に表示される
-// tagsには個人開発、チーム開発、活動を指定
 const projects: Project[] = [
   {
-    title: '電脳サークル公式サイト',
-    thumbnail: '/projects/Denno-Circle-Official-Site.png',
-    description: '電脳サークルの公式ウェブサイト',
-    detailPath: 'Denno-Circle-Official-Site.md',
-    tags: ['チーム開発'],
-    date: '2023/03',
+    title: "電脳サークル公式サイト",
+    thumbnail: "/projects/Denno-Circle-Official-Site.png",
+    description: "電脳サークルの公式ウェブサイト",
+    detailPath: "Denno-Circle-Official-Site.md",
+    tags: ["チーム開発"],
+    date: "2023/03",
   },
   {
-    title: 'PCHIP-Image-Enlarger',
-    thumbnail: '/projects/PCHIP-Image-Enlarger.png',
-    description: '画像補間プログラム',
-    detailPath: 'PCHIP-Image-Enlarger.md',
-    tags: ['個人開発'],
-    date: '2023/05',
+    title: "PCHIP-Image-Enlarger",
+    thumbnail: "/projects/PCHIP-Image-Enlarger.png",
+    description: "画像補間プログラム",
+    detailPath: "PCHIP-Image-Enlarger.md",
+    tags: ["個人開発"],
+    date: "2023/05",
   },
   {
-    title: 'Substring-Word-Finder',
-    thumbnail: '/projects/Substring-Word-Finder.png',
-    description: '部分文字列検索ウェブアプリ',
-    detailPath: 'Substring-Word-Finder.md',
-    tags: ['個人開発'],
-    date: '2023/05',
+    title: "Substring-Word-Finder",
+    thumbnail: "/projects/Substring-Word-Finder.png",
+    description: "部分文字列検索ウェブアプリ",
+    detailPath: "Substring-Word-Finder.md",
+    tags: ["個人開発"],
+    date: "2023/05",
   },
   {
-    title: '飛んでけ鉄拳！Rocket Puncher',
-    thumbnail: '/projects/RocketPunch.png',
-    description: 'RocketPunchを操作するVRゲーム',
-    detailPath: 'RocketPunch.md',
-    tags: ['チーム開発'],
-    date: '2024/10',
+    title: "飛んでけ鉄拳！Rocket Puncher",
+    thumbnail: "/projects/RocketPunch.png",
+    description: "RocketPunchを操作するVRゲーム",
+    detailPath: "RocketPunch.md",
+    tags: ["チーム開発"],
+    date: "2024/10",
   },
   {
-    title: 'RicoShot',
-    thumbnail: '/projects/RicoShot.png',
-    description: 'シューティングゲーム',
-    detailPath: 'RicoShot.md',
-    tags: ['チーム開発'],
-    date: '2024/11',
+    title: "RicoShot",
+    thumbnail: "/projects/RicoShot.png",
+    description: "シューティングゲーム",
+    detailPath: "RicoShot.md",
+    tags: ["チーム開発"],
+    date: "2024/11",
   },
-];
+]
 
-const ProjectsList: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [markdownContent, setMarkdownContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+const tagColors: Record<string, string> = {
+  "個人開発": "border-blue-500/20 text-blue-400 bg-blue-500/10",
+  "チーム開発": "border-emerald-500/20 text-emerald-400 bg-emerald-500/10",
+  "活動": "border-amber-500/20 text-amber-400 bg-amber-500/10",
+}
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+}
+
+export default function ProjectsList() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [markdownContent, setMarkdownContent] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedProject) {
-      setLoading(true);
+      setLoading(true)
       fetch(`/projects/${selectedProject.detailPath}`)
         .then((res) => res.text())
         .then((text) => {
-          setMarkdownContent(text);
-          setLoading(false);
+          setMarkdownContent(text)
+          setLoading(false)
         })
         .catch(() => {
-          setMarkdownContent('Failed to load content.');
-          setLoading(false);
-        });
+          setMarkdownContent("Failed to load content.")
+          setLoading(false)
+        })
     }
-  }, [selectedProject]);
-
-  const openModal = (project: Project) => {
-    setSelectedProject(project);
-  };
+  }, [selectedProject])
 
   const closeModal = () => {
-    setSelectedProject(null);
-    setMarkdownContent('');
-  };
+    setSelectedProject(null)
+    setMarkdownContent("")
+  }
 
   return (
-    <div>
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {[...projects].reverse().map((project) => (
-          <div
-            key={project.title}
-            onClick={() => openModal(project)}
-            className="cursor-pointer hover:shadow-lg transition-shadow"
-          >
-            <Card>
-              <Image
-                src={project.thumbnail}
-                width={500}
-                height={500}
-                alt={project.title}
-                className="w-full h-32 object-cover rounded-t"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-bold">{project.title}</h3>
-                <p className="text-sm text-gray-500">{project.date}</p>
-                <div className="mt-2 flex space-x-2">
-                  {project.tags.map(tag => {
-                    const tagVariant = ({ "個人開発": "blue", "チーム開発": "green", "活動": "white" }[tag] || "outline") as "blue" | "green" | "white" | "outline";
-                    return <Badge key={tag} variant={tagVariant}>{tag}</Badge>;
-                  })}
-                </div>
-                <p className="text-sm text-gray-600 mt-2">{project.description}</p>
+    <section id="projects" className="py-24 px-4">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-3">
+            Projects
+          </h2>
+          <p className="text-gray-500 text-sm font-mono tracking-wider">プロジェクト</p>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {[...projects].reverse().map((project) => (
+            <motion.div
+              key={project.title}
+              variants={cardVariants}
+              onClick={() => setSelectedProject(project)}
+              className="group cursor-pointer rounded-xl border border-white/[0.06] bg-navy-800/50
+                         hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300 overflow-hidden"
+            >
+              <div className="relative h-36 overflow-hidden">
+                <Image
+                  src={project.thumbnail}
+                  width={500}
+                  height={300}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-800/80 to-transparent" />
               </div>
-            </Card>
-          </div>
-        ))}
-      </div>
-      {selectedProject && (
-        <Modal isOpen={true} onClose={closeModal}>
-          <div className="prose">
+              <div className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${tagColors[tag] || "border-gray-500/20 text-gray-400"}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  <span className="text-[10px] font-mono text-gray-600 ml-auto">
+                    {project.date}
+                  </span>
+                </div>
+                <h3 className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors mb-1">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-gray-500">{project.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <Modal isOpen={!!selectedProject} onClose={closeModal}>
+          <div className="prose prose-invert prose-sm max-w-none">
             {loading ? (
-              <p>Loading...</p>
+              <div className="flex items-center justify-center py-12">
+                <div className="w-6 h-6 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+              </div>
             ) : (
-              <ReactMarkdown rehypePlugins={[rehypeRaw]} components={{
-                "h1": ({ ...props }) => <h1 className="text-3xl font-bold mt-4 mb-2" {...props} />,
-                "h2": ({ ...props }) => <h2 className="text-2xl font-bold mt-4 mb-2" {...props} />,
-                "h3": ({ ...props }) => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
-              }}>{markdownContent}</ReactMarkdown>
+              <ReactMarkdown
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  h1: ({ ...props }) => (
+                    <h1 className="text-2xl font-bold mt-4 mb-2 text-gradient" {...props} />
+                  ),
+                  h2: ({ ...props }) => (
+                    <h2 className="text-xl font-bold mt-4 mb-2 text-gray-200" {...props} />
+                  ),
+                  h3: ({ ...props }) => (
+                    <h3 className="text-lg font-bold mt-3 mb-1 text-gray-300" {...props} />
+                  ),
+                  p: ({ ...props }) => (
+                    <p className="text-sm text-gray-400 leading-relaxed" {...props} />
+                  ),
+                  a: ({ ...props }) => (
+                    <a className="text-cyan-400 hover:text-cyan-300 underline" {...props} />
+                  ),
+                }}
+              >
+                {markdownContent}
+              </ReactMarkdown>
             )}
           </div>
         </Modal>
-      )}
-    </div>
-  );
-};
-
-export default ProjectsList;
+      </div>
+    </section>
+  )
+}
