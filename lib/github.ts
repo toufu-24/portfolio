@@ -1,18 +1,34 @@
 import { Octokit } from "@octokit/rest"
 import colors from "@/public/Colors.json"
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
+/** Vercel 等のデプロイでは必須。未設定だと共有 IP のレート制限や GraphQL 失敗でデータが空になりやすい。 */
+function getAuthToken(): string | undefined {
+  return process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN
+}
 
-const fallbackStats = {
-  publicRepos: 0,
-  followers: 0,
-  totalStars: 0,
-  totalForks: 0,
-  totalContributions: 0,
+function getOctokit() {
+  return new Octokit({ auth: getAuthToken() })
+}
+
+export type GitHubStatsPayload = {
+  publicRepos: number | null
+  followers: number | null
+  totalStars: number | null
+  totalForks: number | null
+  totalContributions: number | null
+}
+
+const fallbackStats: GitHubStatsPayload = {
+  publicRepos: null,
+  followers: null,
+  totalStars: null,
+  totalForks: null,
+  totalContributions: null,
 }
 
 export async function getGitHubStats() {
   try {
+    const octokit = getOctokit()
     const user = await octokit.rest.users.getByUsername({ username: "toufu-24" })
     const repos = await octokit.rest.repos.listForUser({ username: "toufu-24", sort: "updated", per_page: 100 })
 
@@ -32,8 +48,13 @@ export async function getGitHubStats() {
   }
 }
 
-async function getTotalContributions() {
+async function getTotalContributions(): Promise<number | null> {
+  // GraphQL API は認証必須。トークンなしでは取得不可。
+  if (!getAuthToken()) {
+    return null
+  }
   try {
+    const octokit = getOctokit()
     const createdAtQuery = `
       query {
         user(login: "toufu-24") {
@@ -79,12 +100,22 @@ async function getTotalContributions() {
 
     return total
   } catch {
-    return 0
+    return null
   }
 }
 
-export async function getTopRepositories() {
+export type TopRepository = {
+  name: string
+  description: string | null
+  stars: number | null | undefined
+  forks: number | null | undefined
+  language: string | null | undefined
+  url: string
+}
+
+export async function getTopRepositories(): Promise<TopRepository[] | null> {
   try {
+    const octokit = getOctokit()
     const { data } = await octokit.rest.repos.listForUser({
       username: "toufu-24",
       per_page: 100,
@@ -103,12 +134,15 @@ export async function getTopRepositories() {
       }))
   } catch (e) {
     console.error("Failed to fetch top repositories:", e)
-    return []
+    return null
   }
 }
 
-export async function getLanguageStats() {
+export type LanguageStatRow = { name: string; percentage: number }
+
+export async function getLanguageStats(): Promise<LanguageStatRow[] | null> {
   try {
+    const octokit = getOctokit()
     const { data } = await octokit.rest.repos.listForUser({
       username: "toufu-24",
       per_page: 100,
@@ -133,7 +167,7 @@ export async function getLanguageStats() {
       }))
   } catch (e) {
     console.error("Failed to fetch language stats:", e)
-    return []
+    return null
   }
 }
 

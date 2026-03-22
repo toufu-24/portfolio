@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache"
 import Hero from "@/components/Hero"
 import ResearchInterests from "@/components/ResearchInterests"
 import Publications from "@/components/Publications"
@@ -8,9 +9,10 @@ import Contact from "@/components/Contact"
 import WaveformDivider from "@/components/WaveformDivider"
 import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "@/lib/github"
 
-export const revalidate = 86400
-
 export default async function Home() {
+  // ビルド時の GitHub 失敗が ISR で長く空表示になるのを避ける（デプロイ後にトークンを足した場合も反映されやすい）
+  noStore()
+
   const [githubStats, topRepositories, languageStats, languageColors] = await Promise.all([
     getGitHubStats(),
     getTopRepositories(),
