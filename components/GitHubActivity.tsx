@@ -60,9 +60,10 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             GitHub Activity
           </h2>
+          <p className="text-gray-500 text-sm font-mono tracking-wider">GitHub</p>
         </motion.div>
 
         <motion.div
@@ -80,7 +81,7 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
                 variants={itemVariants}
                 className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-4 text-center"
               >
-                <item.icon className="w-4 h-4 text-white/30 mx-auto mb-2" />
+                <item.icon className="w-4 h-4 text-cyan-400/60 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-gray-100 font-mono">{item.value}</div>
                 <div className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{item.label}</div>
               </motion.div>
@@ -129,13 +130,13 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group block p-3 rounded-lg border border-white/[0.04] bg-navy-700/30
-                               hover:border-white/[0.10] transition-all duration-200"
+                               hover:border-cyan-500/20 transition-all duration-200"
                   >
                     <div className="flex items-start justify-between mb-1">
-                      <span className="text-sm font-semibold text-gray-200 group-hover:text-white transition-colors font-mono">
+                      <span className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors font-mono">
                         {repo.name}
                       </span>
-                      <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-white transition-colors flex-shrink-0 mt-1" />
+                      <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-cyan-400 transition-colors flex-shrink-0 mt-1" />
                     </div>
                     <p className="text-xs text-gray-500 mb-2 line-clamp-1">
                       {repo.description || "No description"}
@@ -170,7 +171,7 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/[0.08]
-                         text-gray-400 text-sm hover:text-white hover:border-white/[0.15] transition-all duration-300"
+                         text-gray-400 text-sm hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300"
             >
               <Github className="w-4 h-4" />
               View GitHub Profile

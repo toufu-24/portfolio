@@ -13,7 +13,7 @@
     --popover: 222 47% 8%;
     --popover-foreground: 210 40% 96%;
 
-    --primary: 210 15% 55%;
+    --primary: 192 100% 50%;
     --primary-foreground: 222 47% 6%;
 
     --secondary: 217 33% 14%;
@@ -22,7 +22,7 @@
     --muted: 217 33% 14%;
     --muted-foreground: 215 20% 55%;
 
-    --accent: 210 12% 45%;
+    --accent: 192 80% 40%;
     --accent-foreground: 210 40% 96%;
 
     --destructive: 0 63% 31%;
@@ -30,7 +30,7 @@
 
     --border: 217 33% 16%;
     --input: 217 33% 16%;
-    --ring: 210 15% 55%;
+    --ring: 192 100% 50%;
 
     --radius: 0.5rem;
   }
@@ -47,6 +47,29 @@
   code, pre, .font-mono {
     font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
   }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500;
+  }
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.15), 0 0 60px rgba(0, 212, 255, 0.05);
+  }
+  .glow-cyan-strong {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.25), 0 0 80px rgba(0, 212, 255, 0.1);
+  }
+  .border-glow {
+    border-color: rgba(0, 212, 255, 0.2);
+  }
+}
+
+/* Grid pattern background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 /* Smooth scrollbar */

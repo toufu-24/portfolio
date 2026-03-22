@@ -48,7 +48,7 @@ export default function SparseSignalScene() {
   const init = useCallback((w: number, h: number) => {
     const nodeCount = Math.min(38, Math.floor((w * h) / 25000))
     const nodes: GraphNode[] = []
-    const colors = ["#94a3b8", "#78859b", "#64748b", "#a1a1aa", "#8b8fa8", "#7c8298"]
+    const colors = ["#00d4ff", "#0ea5e9", "#38bdf8", "#67e8f9", "#a78bfa", "#818cf8"]
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * w,
@@ -126,9 +126,9 @@ export default function SparseSignalScene() {
         const intensity = 1 - level / 25
         const a = 0.02 + intensity * 0.045
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, scale)
-        g.addColorStop(0, `rgba(148, 163, 184, ${a * 1.0})`)
-        g.addColorStop(0.7, `rgba(148, 163, 184, ${a * 0.5})`)
-        g.addColorStop(1, `rgba(148, 163, 184, ${a * 0.1})`)
+        g.addColorStop(0, `rgba(0, 212, 255, ${a * 1.3})`)
+        g.addColorStop(0.7, `rgba(0, 212, 255, ${a * 0.7})`)
+        g.addColorStop(1, `rgba(0, 212, 255, ${a * 0.2})`)
         ctx.fillStyle = g
         ctx.fill()
       }
@@ -155,7 +155,7 @@ export default function SparseSignalScene() {
         const fade = 1 - i / trailLen
 
         ctx.beginPath()
-        ctx.strokeStyle = `rgba(148, 163, 184, ${fade * 0.35})`
+        ctx.strokeStyle = `rgba(0, 212, 255, ${fade * 0.45})`
         ctx.lineWidth = 1 + fade * 1
         ctx.moveTo(cx + (p.x / 2.5) * scale, cy + (p.y / 2.5) * scale)
         ctx.lineTo(cx + (np.x / 2.5) * scale, cy + (np.y / 2.5) * scale)
@@ -167,9 +167,9 @@ export default function SparseSignalScene() {
       const hy = cy + (head.y / 2.5) * scale
 
       const glowGrad = ctx.createRadialGradient(hx, hy, 0, hx, hy, 15)
-      glowGrad.addColorStop(0, "rgba(148, 163, 184, 0.12)")
-      glowGrad.addColorStop(0.5, "rgba(148, 163, 184, 0.03)")
-      glowGrad.addColorStop(1, "rgba(148, 163, 184, 0)")
+      glowGrad.addColorStop(0, "rgba(0, 212, 255, 0.18)")
+      glowGrad.addColorStop(0.5, "rgba(0, 212, 255, 0.04)")
+      glowGrad.addColorStop(1, "rgba(0, 212, 255, 0)")
       ctx.beginPath()
       ctx.arc(hx, hy, 15, 0, TAU)
       ctx.fillStyle = glowGrad
@@ -177,12 +177,12 @@ export default function SparseSignalScene() {
 
       ctx.beginPath()
       ctx.arc(hx, hy, 3, 0, TAU)
-      ctx.fillStyle = "rgba(148, 163, 184, 0.5)"
+      ctx.fillStyle = "rgba(0, 212, 255, 0.7)"
       ctx.fill()
 
       ctx.beginPath()
       ctx.arc(hx, hy, 5, 0, TAU)
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.1)"
+      ctx.strokeStyle = "rgba(0, 212, 255, 0.15)"
       ctx.lineWidth = 0.8
       ctx.stroke()
 
@@ -191,8 +191,8 @@ export default function SparseSignalScene() {
       const pulse = 0.5 + Math.sin(t * 2) * 0.5
 
       const starGlow = ctx.createRadialGradient(starX, starY, 0, starX, starY, 12 + pulse * 6)
-      starGlow.addColorStop(0, `rgba(167, 139, 250, ${0.15 + pulse * 0.08})`)
-      starGlow.addColorStop(0.4, `rgba(167, 139, 250, ${0.03 + pulse * 0.02})`)
+      starGlow.addColorStop(0, `rgba(167, 139, 250, ${0.25 + pulse * 0.15})`)
+      starGlow.addColorStop(0.4, `rgba(167, 139, 250, ${0.05 + pulse * 0.04})`)
       starGlow.addColorStop(1, "rgba(167, 139, 250, 0)")
       ctx.beginPath()
       ctx.arc(starX, starY, 12 + pulse * 6, 0, TAU)
@@ -201,7 +201,7 @@ export default function SparseSignalScene() {
 
       ctx.beginPath()
       ctx.arc(starX, starY, 2 + pulse * 1.2, 0, TAU)
-      ctx.fillStyle = `rgba(167, 139, 250, ${0.3 + pulse * 0.12})`
+      ctx.fillStyle = `rgba(167, 139, 250, ${0.45 + pulse * 0.2})`
       ctx.fill()
     }
 
@@ -219,7 +219,7 @@ export default function SparseSignalScene() {
             const flowAlpha = progress * 0.08 * (0.5 + Math.sin(flowPhase * TAU) * 0.5)
 
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(148, 163, 184, ${flowAlpha})`
+            ctx.strokeStyle = `rgba(0, 212, 255, ${flowAlpha})`
             ctx.lineWidth = 0.5
             ctx.moveTo(nodes[i].x, nodes[i].y)
             ctx.lineTo(nodes[j].x, nodes[j].y)
@@ -280,27 +280,27 @@ export default function SparseSignalScene() {
 
         if (bar.height > 0.3) {
           const grad = ctx.createLinearGradient(x, barAreaY, x, barAreaY - bh)
-          grad.addColorStop(0, "rgba(148, 163, 184, 0.005)")
-          grad.addColorStop(0.5, `rgba(148, 163, 184, ${0.08 * pulse})`)
-          grad.addColorStop(1, `rgba(148, 163, 184, ${0.15 * pulse})`)
+          grad.addColorStop(0, "rgba(0, 212, 255, 0.008)")
+          grad.addColorStop(0.5, `rgba(0, 212, 255, ${0.12 * pulse})`)
+          grad.addColorStop(1, `rgba(0, 212, 255, ${0.22 * pulse})`)
           ctx.fillStyle = grad
           ctx.fillRect(x - barW / 2, barAreaY - bh, barW, bh)
 
           const tipGlow = ctx.createRadialGradient(x, barAreaY - bh, 0, x, barAreaY - bh, 5)
-          tipGlow.addColorStop(0, `rgba(148, 163, 184, ${0.15 * pulse})`)
-          tipGlow.addColorStop(1, "rgba(148, 163, 184, 0)")
+          tipGlow.addColorStop(0, `rgba(0, 212, 255, ${0.25 * pulse})`)
+          tipGlow.addColorStop(1, "rgba(0, 212, 255, 0)")
           ctx.beginPath()
           ctx.arc(x, barAreaY - bh, 5, 0, TAU)
           ctx.fillStyle = tipGlow
           ctx.fill()
         } else {
-          ctx.fillStyle = "rgba(148, 163, 184, 0.015)"
+          ctx.fillStyle = "rgba(0, 212, 255, 0.02)"
           ctx.fillRect(x - 0.5, barAreaY - bh, 1, bh)
         }
       }
 
       ctx.beginPath()
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.02)"
+      ctx.strokeStyle = "rgba(0, 212, 255, 0.03)"
       ctx.lineWidth = 0.5
       ctx.moveTo(0, barAreaY)
       ctx.lineTo(w, barAreaY)

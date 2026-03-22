@@ -83,12 +83,12 @@ export default function Header() {
                     {isActive && (
                       <motion.div
                         layoutId="underline"
-                        className="absolute bottom-0 left-2.5 right-2.5 h-px bg-white/60"
+                        className="absolute bottom-0 left-2.5 right-2.5 h-px bg-cyan-400"
                         transition={{ type: "spring", stiffness: 400, damping: 28 }}
                       />
                     )}
                     <span className={`transition-colors duration-200 ${
-                      isActive ? "text-white" : "text-gray-600 hover:text-gray-300"
+                      isActive ? "text-cyan-400" : "text-gray-600 hover:text-gray-300"
                     }`}>
                       {item.label}
                     </span>
@@ -121,7 +121,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:text-white transition-colors"
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:text-cyan-400 transition-colors"
             >
               <AnimatePresence mode="wait">
                 {mobileOpen ? (
@@ -159,7 +159,7 @@ export default function Header() {
                       onClick={() => handleClick(item.href)}
                       className={`text-left px-3 py-2.5 text-xs font-mono tracking-wide transition-colors duration-200 border-l-2 ${
                         isActive
-                          ? "text-white border-white/40"
+                          ? "text-cyan-400 border-cyan-400"
                           : "text-gray-600 border-transparent hover:text-gray-300 hover:border-gray-700"
                       }`}
                     >

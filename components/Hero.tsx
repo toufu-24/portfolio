@@ -48,7 +48,7 @@ export default function Hero() {
           <p className="text-[11px] md:text-xs font-mono text-gray-500/80 tracking-[0.35em] uppercase mb-3">
             Fujino So
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-3">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-b from-white via-white/90 to-gray-400 bg-clip-text text-transparent mb-3">
             藤野 創
           </h1>
         </motion.div>
@@ -57,7 +57,7 @@ export default function Hero() {
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mx-auto mb-5 h-px w-16 origin-center bg-white/20"
+          className="mx-auto mb-5 h-px w-16 origin-center bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
         />
 
         <motion.p

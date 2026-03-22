@@ -40,7 +40,7 @@ const getAtCoderColor = (title: string): string => {
   if (title.includes("緑色")) return "#22c55e"
   if (title.includes("水色")) return "#67e8f9"
   if (title.includes("青色")) return "#3b82f6"
-  return "#94a3b8"
+  return "#00d4ff"
 }
 
 const getIcon = (type: string, title: string) => {
@@ -65,8 +65,8 @@ const getDotColor = (type: string, title: string): string => {
   if (type === "birth") return "#ec4899"
   if (type === "school") return "#14b8a6"
   if (type === "award") return "#eab308"
-  if (type === "research") return "#94a3b8"
-  return "#94a3b8"
+  if (type === "research") return "#00d4ff"
+  return "#00d4ff"
 }
 
 const itemVariants = {
@@ -91,13 +91,14 @@ export default function Timeline() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Timeline
           </h2>
+          <p className="text-gray-500 text-sm font-mono tracking-wider">経歴</p>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent" />
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/30 via-cyan-500/10 to-transparent" />
 
           <motion.div
             initial="hidden"
@@ -116,8 +117,8 @@ export default function Timeline() {
                 <div key={`${item.title}-${i}`}>
                   {showYear && (
                     <motion.div variants={itemVariants} className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
-                      <div className="w-10 h-10 rounded-full border border-white/[0.12] bg-navy-800 flex items-center justify-center">
-                        <span className="text-sm font-mono font-bold text-white/70">{year}</span>
+                      <div className="w-10 h-10 rounded-full border border-cyan-500/20 bg-navy-800 flex items-center justify-center">
+                        <span className="text-sm font-mono font-bold text-cyan-400">{year}</span>
                       </div>
                     </motion.div>
                   )}
@@ -138,7 +139,7 @@ export default function Timeline() {
                         <span style={{ color: dotColor }} className="opacity-70">
                           {getIcon(item.type, item.title)}
                         </span>
-                        <h3 className="text-base font-semibold text-gray-200 group-hover:text-white transition-colors">
+                        <h3 className="text-base font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
                           {item.title}
                         </h3>
                       </div>

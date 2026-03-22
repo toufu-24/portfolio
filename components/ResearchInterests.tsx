@@ -18,6 +18,7 @@ const researchAreas = [
       bgFaint: "bg-cyan-500/10",
       bgHover: "group-hover:bg-cyan-500/20",
       border: "border-cyan-500/20",
+      glow: "group-hover:shadow-[0_0_30px_rgba(0,212,255,0.12)]",
       gradientFrom: "from-cyan-500/30",
     },
   },
@@ -34,6 +35,7 @@ const researchAreas = [
       bgFaint: "bg-violet-500/10",
       bgHover: "group-hover:bg-violet-500/20",
       border: "border-violet-500/20",
+      glow: "group-hover:shadow-[0_0_30px_rgba(167,139,250,0.12)]",
       gradientFrom: "from-violet-500/30",
     },
   },
@@ -50,6 +52,7 @@ const researchAreas = [
       bgFaint: "bg-emerald-500/10",
       bgHover: "group-hover:bg-emerald-500/20",
       border: "border-emerald-500/20",
+      glow: "group-hover:shadow-[0_0_30px_rgba(52,211,153,0.12)]",
       gradientFrom: "from-emerald-500/30",
     },
   },
@@ -83,7 +86,7 @@ export default function ResearchInterests() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Interests
           </h2>
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm font-mono tracking-wider">
             関心領域
           </p>
         </motion.div>
@@ -100,7 +103,7 @@ export default function ResearchInterests() {
               key={area.titleEn}
               variants={cardVariants}
               className={`group relative rounded-2xl border border-white/[0.06] bg-navy-800/40 overflow-hidden
-                         hover:border-white/[0.10]
+                         hover:border-white/[0.10] ${area.accent.glow}
                          transition-all duration-500 ease-out`}
             >
               {/* Top accent line */}

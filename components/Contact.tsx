@@ -35,9 +35,10 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Contact
           </h2>
+          <p className="text-gray-500 text-sm font-mono tracking-wider">連絡先</p>
         </motion.div>
 
         <motion.div
@@ -54,16 +55,16 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.06]
-                         bg-navy-800/50 hover:border-white/[0.10] transition-all duration-300"
+                         bg-navy-800/50 hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300"
             >
-              <link.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+              <link.icon className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
               <div className="text-left">
-                <div className="text-sm font-semibold text-gray-200 group-hover:text-white transition-colors">
+                <div className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
                   {link.label}
                 </div>
                 <div className="text-xs text-gray-500 font-mono">{link.description}</div>
               </div>
-              <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-white transition-colors ml-2" />
+              <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-cyan-400 transition-colors ml-2" />
             </a>
           ))}
         </motion.div>
