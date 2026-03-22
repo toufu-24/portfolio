@@ -114,7 +114,7 @@ export default function ProjectsList() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Projects
           </h2>
-          <p className="text-gray-500 text-sm font-mono tracking-wider">プロジェクト</p>
+          <p className="text-gray-500 text-sm">プロジェクト</p>
         </motion.div>
 
         <motion.div
@@ -130,7 +130,7 @@ export default function ProjectsList() {
               variants={cardVariants}
               onClick={() => setSelectedProject(project)}
               className="group cursor-pointer rounded-xl border border-white/[0.06] bg-navy-800/50
-                         hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300 overflow-hidden"
+                         hover:border-white/[0.10] transition-all duration-300 overflow-hidden"
             >
               <div className="relative h-36 overflow-hidden">
                 <Image
@@ -156,7 +156,7 @@ export default function ProjectsList() {
                     {project.date}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors mb-1">
+                <h3 className="text-sm font-semibold text-gray-200 group-hover:text-white transition-colors mb-1">
                   {project.title}
                 </h3>
                 <p className="text-xs text-gray-500">{project.description}</p>
@@ -169,7 +169,7 @@ export default function ProjectsList() {
           <div className="prose prose-invert prose-sm max-w-none">
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="w-6 h-6 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+                <div className="w-6 h-6 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
               </div>
             ) : (
               <ReactMarkdown
@@ -188,7 +188,7 @@ export default function ProjectsList() {
                     <p className="text-sm text-gray-400 leading-relaxed" {...props} />
                   ),
                   a: ({ ...props }) => (
-                    <a className="text-cyan-400 hover:text-cyan-300 underline" {...props} />
+                    <a className="text-white/80 hover:text-white underline" {...props} />
                   ),
                 }}
               >

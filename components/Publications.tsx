@@ -37,7 +37,7 @@ export default function Publications() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Publications
           </h2>
-          <p className="text-gray-500 text-sm font-mono tracking-wider">業績</p>
+          <p className="text-gray-500 text-sm">業績</p>
         </motion.div>
 
         <motion.div
@@ -56,7 +56,7 @@ export default function Publications() {
                 key={`${pub.title}-${i}`}
                 variants={itemVariants}
                 className="group relative rounded-lg border border-white/[0.06] bg-navy-800/50 p-5
-                           hover:border-cyan-500/20 transition-all duration-300"
+                           hover:border-white/[0.10] transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 mt-1">
@@ -71,7 +71,7 @@ export default function Publications() {
                         {config.label}
                       </span>
                       {pub.presentation && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border text-cyan-400 bg-cyan-500/10 border-cyan-500/20">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border text-gray-300 bg-white/5 border-white/10">
                           {pub.presentation === "oral" ? "Oral" : "Poster"}
                         </span>
                       )}
@@ -84,7 +84,7 @@ export default function Publications() {
                           href={pub.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1"
+                          className="hover:text-white transition-colors inline-flex items-center gap-1"
                         >
                           {pub.title}
                           <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />

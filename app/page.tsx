@@ -5,7 +5,6 @@ import Timeline from "@/components/Timeline"
 import ProjectsList from "@/components/ProjectsList"
 import GitHubActivity from "@/components/GitHubActivity"
 import Contact from "@/components/Contact"
-import WaveformDivider from "@/components/WaveformDivider"
 import { getGitHubStats, getTopRepositories, getLanguageStats, getLanguageColors } from "@/lib/github"
 
 export const revalidate = 86400
@@ -19,7 +18,7 @@ export default async function Home() {
   ])
 
   return (
-    <main className="bg-grid min-h-screen">
+    <main className="min-h-screen">
       <Hero />
 
       {/* About */}
@@ -28,7 +27,7 @@ export default async function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             About
           </h2>
-          <p className="text-gray-500 text-sm font-mono tracking-wider mb-8">自己紹介</p>
+          <p className="text-gray-500 text-sm mb-8">自己紹介</p>
           <p className="text-gray-400 leading-relaxed mb-6">
             東京農工大学 工学部 知能情報システム工学科の学生です。
             最適化と信号処理を軸に研究しており、特に圧縮センシングにおけるスパース信号の復元問題に取り組んでいます。
@@ -39,23 +38,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <WaveformDivider variant="sine" />
-
       <ResearchInterests />
-
-      <WaveformDivider variant="sparse" />
 
       <Publications />
 
-      <WaveformDivider variant="graph" />
-
       <Timeline />
 
-      <WaveformDivider variant="sine" />
-
       <ProjectsList />
-
-      <WaveformDivider variant="graph" />
 
       <GitHubActivity
         stats={githubStats}

@@ -49,15 +49,15 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
         const bh = bar.current * h * 0.7
         if (bh > 1) {
           const grad = ctx.createLinearGradient(x, h, x, h - bh)
-          grad.addColorStop(0, "rgba(0, 212, 255, 0.02)")
-          grad.addColorStop(1, "rgba(0, 212, 255, 0.3)")
+          grad.addColorStop(0, "rgba(148, 163, 184, 0.02)")
+          grad.addColorStop(1, "rgba(148, 163, 184, 0.25)")
           ctx.fillStyle = grad
           ctx.fillRect(x, h - bh, barW, bh)
 
           if (bar.target > 0.3) {
             const glow = ctx.createRadialGradient(x + barW / 2, h - bh, 0, x + barW / 2, h - bh, 4)
-            glow.addColorStop(0, "rgba(0, 212, 255, 0.3)")
-            glow.addColorStop(1, "rgba(0, 212, 255, 0)")
+            glow.addColorStop(0, "rgba(148, 163, 184, 0.2)")
+            glow.addColorStop(1, "rgba(148, 163, 184, 0)")
             ctx.beginPath()
             ctx.arc(x + barW / 2, h - bh, 4, 0, Math.PI * 2)
             ctx.fillStyle = glow
@@ -72,7 +72,7 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
       const pad = 4
 
       ctx.beginPath()
-      ctx.strokeStyle = "rgba(0, 212, 255, 0.25)"
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.2)"
       ctx.lineWidth = 1.2
       ctx.lineCap = "round"
       ctx.lineJoin = "round"
@@ -93,7 +93,7 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
         const py = h * 0.9 - val * h * 0.75
 
         const glow = ctx.createRadialGradient(px, py, 0, px, py, 6)
-        glow.addColorStop(0, "rgba(167, 139, 250, 0.35)")
+        glow.addColorStop(0, "rgba(167, 139, 250, 0.2)")
         glow.addColorStop(1, "rgba(167, 139, 250, 0)")
         ctx.beginPath()
         ctx.arc(px, py, 6, 0, Math.PI * 2)
@@ -102,7 +102,7 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
 
         ctx.beginPath()
         ctx.arc(px, py, 2, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(167, 139, 250, 0.5)"
+        ctx.fillStyle = "rgba(167, 139, 250, 0.35)"
         ctx.fill()
       }
     }
@@ -162,7 +162,7 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
         const a = (0.12 + pulse * 0.18)
 
         const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3)
-        glow.addColorStop(0, `rgba(52, 211, 153, ${a * 0.4})`)
+        glow.addColorStop(0, `rgba(52, 211, 153, ${a * 0.25})`)
         glow.addColorStop(1, "rgba(52, 211, 153, 0)")
         ctx.beginPath()
         ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2)
@@ -195,8 +195,8 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
         const a = 0.08 + magnitude * 0.25
 
         const grad = ctx.createLinearGradient(i * binW + 1, h, i * binW + 1, h - bh)
-        grad.addColorStop(0, `rgba(0, 212, 255, ${a * 0.1})`)
-        grad.addColorStop(1, `rgba(0, 212, 255, ${a})`)
+        grad.addColorStop(0, `rgba(148, 163, 184, ${a * 0.1})`)
+        grad.addColorStop(1, `rgba(148, 163, 184, ${a})`)
         ctx.fillStyle = grad
         ctx.fillRect(i * binW + 1, h - bh, binW - 2, bh)
 
@@ -205,8 +205,8 @@ export default function MiniCanvas({ variant, className = "" }: MiniCanvasProps)
             i * binW + binW / 2, h - bh, 0,
             i * binW + binW / 2, h - bh, 5,
           )
-          glow.addColorStop(0, `rgba(0, 212, 255, ${magnitude * 0.3})`)
-          glow.addColorStop(1, "rgba(0, 212, 255, 0)")
+          glow.addColorStop(0, `rgba(148, 163, 184, ${magnitude * 0.2})`)
+          glow.addColorStop(1, "rgba(148, 163, 184, 0)")
           ctx.beginPath()
           ctx.arc(i * binW + binW / 2, h - bh, 5, 0, Math.PI * 2)
           ctx.fillStyle = glow
