@@ -46,7 +46,7 @@ function EmailLink() {
 
   return (
     <div className="group flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.06]
-                    bg-navy-800/50 hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300">
+                    bg-navy-800/50 hover:border-white/[0.12] transition-all duration-300">
       <Mail className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
       <div className="text-left">
         <div className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
@@ -111,7 +111,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.06]
-                         bg-navy-800/50 hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300"
+                         bg-navy-800/50 hover:border-white/[0.12] transition-all duration-300"
             >
               <link.icon className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
               <div className="text-left">

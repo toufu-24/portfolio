@@ -141,7 +141,7 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group block p-3 rounded-lg border border-white/[0.04] bg-navy-700/30
-                                 hover:border-cyan-500/20 transition-all duration-200"
+                                 hover:border-white/[0.10] transition-all duration-200"
                     >
                       <div className="flex items-start justify-between mb-1">
                         <span className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors font-mono">
@@ -183,7 +183,7 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/[0.08]
-                         text-gray-400 text-sm hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300"
+                         text-gray-400 text-sm hover:text-cyan-400 hover:border-white/[0.15] transition-all duration-300"
             >
               <Github className="w-4 h-4" />
               View GitHub Profile

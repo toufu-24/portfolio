@@ -130,7 +130,7 @@ export default function ProjectsList() {
               variants={cardVariants}
               onClick={() => setSelectedProject(project)}
               className="group cursor-pointer rounded-xl border border-white/[0.06] bg-navy-800/50
-                         hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300 overflow-hidden"
+                         hover:border-white/[0.12] transition-all duration-300 overflow-hidden"
             >
               <div className="relative h-36 overflow-hidden">
                 <Image

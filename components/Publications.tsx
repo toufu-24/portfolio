@@ -56,7 +56,7 @@ export default function Publications() {
                 key={`${pub.title}-${i}`}
                 variants={itemVariants}
                 className="group relative rounded-lg border border-white/[0.06] bg-navy-800/50 p-5
-                           hover:border-cyan-500/20 transition-all duration-300"
+                           hover:border-white/[0.12] transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 mt-1">
@@ -71,7 +71,7 @@ export default function Publications() {
                         {config.label}
                       </span>
                       {pub.presentation && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border text-cyan-400 bg-cyan-500/10 border-cyan-500/20">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border text-cyan-400 bg-white/[0.04] border-white/[0.08]">
                           {pub.presentation === "oral" ? "Oral" : "Poster"}
                         </span>
                       )}

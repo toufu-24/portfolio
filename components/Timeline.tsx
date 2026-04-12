@@ -65,8 +65,8 @@ const getDotColor = (type: string, title: string): string => {
   if (type === "birth") return "#ec4899"
   if (type === "school") return "#14b8a6"
   if (type === "award") return "#eab308"
-  if (type === "research") return "#00d4ff"
-  return "#00d4ff"
+  if (type === "research") return "#8b5cf6"
+  return "#94a3b8"
 }
 
 const itemVariants = {
@@ -98,7 +98,7 @@ export default function Timeline() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/30 via-cyan-500/10 to-transparent" />
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-transparent" />
 
           <motion.div
             initial="hidden"
@@ -117,7 +117,7 @@ export default function Timeline() {
                 <div key={`${item.title}-${i}`}>
                   {showYear && (
                     <motion.div variants={itemVariants} className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
-                      <div className="w-10 h-10 rounded-full border border-cyan-500/20 bg-navy-800 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full border border-white/[0.10] bg-navy-800 flex items-center justify-center">
                         <span className="text-sm font-mono font-bold text-cyan-400">{year}</span>
                       </div>
                     </motion.div>
