@@ -1,9 +1,12 @@
 "use client"
 
+import { useState, useCallback } from "react"
 import { motion } from "framer-motion"
-import { Github, Mail, Trophy, ExternalLink } from "lucide-react"
+import { Github, Mail, Trophy, ExternalLink, Copy, Check } from "lucide-react"
 
-const links = [
+const E = ["fujinoso.job", "gmail.com"] as const
+
+const staticLinks = [
   {
     icon: Github,
     label: "GitHub",
@@ -16,13 +19,66 @@ const links = [
     href: "https://atcoder.toufu24.dev",
     description: "toufu24",
   },
-  {
-    icon: Mail,
-    label: "Email",
-    href: "mailto:fujinoso.job@gmail.com",
-    description: "fujinoso.job@gmail.com",
-  },
 ]
+
+function buildEmail() {
+  return E.join("\x40")
+}
+
+function EmailLink() {
+  const [copied, setCopied] = useState(false)
+
+  const handleOpen = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    window.location.href = `mailto:${buildEmail()}`
+  }, [])
+
+  const handleCopy = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+      await navigator.clipboard.writeText(buildEmail())
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    },
+    [],
+  )
+
+  return (
+    <div className="group flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.06]
+                    bg-navy-800/50 hover:border-cyan-500/20 hover:glow-cyan transition-all duration-300">
+      <Mail className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+      <div className="text-left">
+        <div className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
+          Email
+        </div>
+        <div className="text-xs text-gray-500 font-mono">
+          {E[0]} [at] {E[1]}
+        </div>
+      </div>
+      <div className="flex items-center gap-1 ml-2">
+        <button
+          onClick={handleCopy}
+          title="メールアドレスをコピー"
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          {copied ? (
+            <Check className="w-3.5 h-3.5 text-green-400" />
+          ) : (
+            <Copy className="w-3.5 h-3.5 text-gray-600 group-hover:text-cyan-400 transition-colors" />
+          )}
+        </button>
+        <button
+          onClick={handleOpen}
+          title="メーラーで開く"
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          <ExternalLink className="w-3.5 h-3.5 text-gray-600 group-hover:text-cyan-400 transition-colors" />
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export default function Contact() {
   return (
@@ -48,7 +104,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-16"
         >
-          {links.map((link) => (
+          {staticLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -67,6 +123,7 @@ export default function Contact() {
               <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-cyan-400 transition-colors ml-2" />
             </a>
           ))}
+          <EmailLink />
         </motion.div>
 
         <div className="text-center text-xs text-gray-600 font-mono">
