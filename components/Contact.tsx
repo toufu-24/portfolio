@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { motion } from "framer-motion"
-import { Github, Mail, Trophy, ExternalLink, Copy, Check } from "lucide-react"
+import { Github, Mail, Linkedin, ExternalLink, Copy, Check } from "lucide-react"
 
 const E = ["fujinoso.job", "gmail.com"] as const
 
@@ -14,10 +14,10 @@ const staticLinks = [
     description: "@toufu-24",
   },
   {
-    icon: Trophy,
-    label: "AtCoder",
-    href: "https://atcoder.toufu24.dev",
-    description: "toufu24",
+    icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/so-fujino-0b50873b4/",
+    description: "So Fujino",
   },
 ]
 
