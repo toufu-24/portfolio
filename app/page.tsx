@@ -32,7 +32,8 @@ export default async function Home() {
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider mb-8">自己紹介</p>
           <p className="text-gray-400 leading-relaxed mb-6">
-            東京農工大学 工学部 知能情報システム工学科の学生です。
+            東京農工大学大学院 工学府 知能情報システム工学専攻の学生です。
+            東京農工大学 工学部 知能情報システム工学科を卒業し、
             最適化と信号処理を軸に研究しており、特に圧縮センシングにおけるスパース信号の復元問題に取り組んでいます。
           </p>
           <p className="text-gray-400 leading-relaxed mb-8">

@@ -32,6 +32,8 @@ const timelineItems: TimelineItem[] = [
   { date: "2024-07", title: "画像処理エンジニア検定エキスパート 合格", description: "", type: "award" },
   { date: "2024-07", title: "応用情報技術者試験 合格", description: "", type: "award" },
   { date: "2025-03", title: "AtCoder Heuristic 青色", description: "レート 1600 達成", type: "trophy" },
+  { date: "2026-03", title: "東京農工大学卒業", description: "工学部 知能情報システム工学科", type: "school" },
+  { date: "2026-04", title: "東京農工大学大学院入学", description: "工学府 知能情報システム工学専攻", type: "school" },
 ]
 
 const getAtCoderColor = (title: string): string => {
@@ -79,8 +81,6 @@ export default function Timeline() {
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   )
 
-  let currentYear = ""
-
   return (
     <section id="timeline" className="py-24 px-4">
       <div className="max-w-3xl mx-auto">
@@ -97,8 +97,8 @@ export default function Timeline() {
           <p className="text-gray-500 text-sm font-mono tracking-wider">経歴</p>
         </motion.div>
 
-        <div className="relative">
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-transparent" />
+        <div className="relative pb-4">
+          <div className="pointer-events-none absolute left-[19px] -top-2 -bottom-2 w-px bg-gradient-to-b from-white/[0.14] via-white/[0.08] to-white/[0.04]" />
 
           <motion.div
             initial="hidden"
@@ -109,8 +109,8 @@ export default function Timeline() {
           >
             {sortedItems.map((item, i) => {
               const year = item.date.slice(0, 4)
-              const showYear = year !== currentYear
-              currentYear = year
+              const previousYear = sortedItems[i - 1]?.date.slice(0, 4)
+              const showYear = year !== previousYear
               const dotColor = getDotColor(item.type, item.title)
 
               return (

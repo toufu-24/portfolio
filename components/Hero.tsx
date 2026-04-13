@@ -66,7 +66,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-sm md:text-base text-gray-400/90 tracking-wide mb-2"
         >
-          東京農工大学 工学部 知能情報システム工学科
+          東京農工大学大学院 工学府 知能情報システム工学専攻
         </motion.p>
 
         <motion.div
