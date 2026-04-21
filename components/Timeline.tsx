@@ -32,6 +32,7 @@ const timelineItems: TimelineItem[] = [
   { date: "2024-07", title: "画像処理エンジニア検定エキスパート 合格", description: "", type: "award" },
   { date: "2024-07", title: "応用情報技術者試験 合格", description: "", type: "award" },
   { date: "2025-03", title: "AtCoder Heuristic 青色", description: "レート 1600 達成", type: "trophy" },
+  { date: "2025-12", title: "ICPC Asia Yokohama Regional Contest 56位", description: "チーム KATUNI として出場", type: "trophy" },
   { date: "2026-03", title: "東京農工大学卒業", description: "工学部 知能情報システム工学科", type: "school" },
   { date: "2026-04", title: "東京農工大学大学院入学", description: "工学府 知能情報システム工学専攻", type: "school" },
 ]
@@ -64,6 +65,7 @@ const getIcon = (type: string, title: string) => {
 
 const getDotColor = (type: string, title: string): string => {
   if (type === "trophy" && title.includes("AtCoder")) return getAtCoderColor(title)
+  if (type === "trophy" && title.includes("ICPC")) return "#f59e0b"
   if (type === "birth") return "#ec4899"
   if (type === "school") return "#14b8a6"
   if (type === "award") return "#eab308"
