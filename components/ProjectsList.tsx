@@ -57,6 +57,14 @@ const projects: Project[] = [
     tags: ["チーム開発"],
     date: "2024/11",
   },
+  {
+    title: "Node x Node",
+    thumbnail: "/projects/Node-x-Node.svg",
+    description: "ニューラルネットワークを構築・学習して戦う戦略ゲーム",
+    detailPath: "Node-x-Node.md",
+    tags: ["チーム開発"],
+    date: "2026/3",
+  },
 ]
 
 const tagColors: Record<string, string> = {
@@ -78,20 +86,17 @@ const cardVariants = {
 export default function ProjectsList() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [markdownContent, setMarkdownContent] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
+  const loading = !!selectedProject && markdownContent === ""
 
   useEffect(() => {
     if (selectedProject) {
-      setLoading(true)
       fetch(`/projects/${selectedProject.detailPath}`)
         .then((res) => res.text())
         .then((text) => {
           setMarkdownContent(text)
-          setLoading(false)
         })
         .catch(() => {
           setMarkdownContent("Failed to load content.")
-          setLoading(false)
         })
     }
   }, [selectedProject])
@@ -128,7 +133,10 @@ export default function ProjectsList() {
             <motion.div
               key={project.title}
               variants={cardVariants}
-              onClick={() => setSelectedProject(project)}
+              onClick={() => {
+                setMarkdownContent("")
+                setSelectedProject(project)
+              }}
               className="group cursor-pointer rounded-xl border border-white/[0.06] bg-navy-800/50
                          hover:border-white/[0.12] transition-all duration-300 overflow-hidden"
             >
