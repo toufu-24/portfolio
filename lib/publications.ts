@@ -18,7 +18,7 @@ export const publications: Publication[] = [
     year: 2026,
     type: "conference",
     presentation: "oral",
-    url: "https://cmsworkshops.com/ICASSP2026/view_paper.php?PaperNum=17123",
+    url: "https://ieeexplore.ieee.org/document/11461524",
     abstract:
       "This paper proposes a greedy algorithm with adaptive block selection for the recovery of block-sparse signals when the block partition is unknown. The proposed method, referred to as subarray orthogonal matching pursuit (SOMP), evaluates candidate blocks over arbitrary contiguous intervals using an evaluation function with a penalty proportional to the block length. By reducing the maximization to the maximum sum subarray problem, the extraction of nonzero blocks at each iteration can be performed efficiently via dynamic programming.",
   },
