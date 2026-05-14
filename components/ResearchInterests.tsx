@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Sigma, BarChart3, Code2 } from "lucide-react"
 import MiniCanvas from "./MiniCanvas"
 
@@ -58,50 +55,23 @@ const researchAreas = [
   },
 ]
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.18 } },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-}
-
 export default function ResearchInterests() {
   return (
     <section id="research" className="py-28 px-4">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+        <div className="text-center mb-20">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Interests
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">
             関心領域
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7">
           {researchAreas.map((area, i) => (
-            <motion.div
+            <div
               key={area.titleEn}
-              variants={cardVariants}
               className={`group relative rounded-2xl border border-white/[0.06] bg-navy-800/40 overflow-hidden
                          hover:border-white/[0.10] ${area.accent.glow}
                          transition-all duration-500 ease-out`}
@@ -150,9 +120,9 @@ export default function ResearchInterests() {
                   {area.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

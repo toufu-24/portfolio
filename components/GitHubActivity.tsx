@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Github, Star, Users, GitFork, Code2, ExternalLink } from "lucide-react"
 
 type GitHubStats = {
@@ -43,61 +40,35 @@ const statItems = (stats: GitHubStats) => [
   { label: "Followers", value: formatStat(stats.followers), icon: Users },
 ]
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-}
-
 export default function GitHubActivity({ stats, languageStats, languageColors, topRepos }: Props) {
   return (
     <section id="github" className="py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             GitHub Activity
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">GitHub</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="space-y-6"
-        >
+        <div className="space-y-6">
           {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {statItems(stats).map((item) => (
-              <motion.div
+              <div
                 key={item.label}
-                variants={itemVariants}
                 className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-4 text-center"
               >
                 <item.icon className="w-4 h-4 text-cyan-400/60 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-gray-100 font-mono tabular-nums">{item.value}</div>
                 <div className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{item.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Language Stats */}
-            <motion.div
-              variants={itemVariants}
-              className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-6"
-            >
+            <div className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-6">
               <h3 className="text-sm font-semibold text-gray-300 mb-4">Language Statistics</h3>
               <div className="space-y-3">
                 {languageStats === null ? (
@@ -122,13 +93,10 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
                   ))
                 )}
               </div>
-            </motion.div>
+            </div>
 
             {/* Top Repos */}
-            <motion.div
-              variants={itemVariants}
-              className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-6"
-            >
+            <div className="rounded-xl border border-white/[0.06] bg-navy-800/50 p-6">
               <h3 className="text-sm font-semibold text-gray-300 mb-4">Top Repositories</h3>
               <div className="space-y-3">
                 {topRepos === null ? (
@@ -173,11 +141,11 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
                   ))
                 )}
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* GitHub Link */}
-          <motion.div variants={itemVariants} className="text-center">
+          <div className="text-center">
             <a
               href="https://github.com/toufu-24"
               target="_blank"
@@ -189,8 +157,8 @@ export default function GitHubActivity({ stats, languageStats, languageColors, t
               View GitHub Profile
               <ExternalLink className="w-3 h-3" />
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

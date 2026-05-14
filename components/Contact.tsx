@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { motion } from "framer-motion"
 import { Github, Mail, Linkedin, ExternalLink, Copy, Check } from "lucide-react"
 
 const E = ["fujinoso.job", "gmail.com"] as const
@@ -84,26 +83,14 @@ export default function Contact() {
   return (
     <footer id="contact" className="py-24 px-4 border-t border-white/[0.04]">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Contact
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">連絡先</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-16"
-        >
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
           {staticLinks.map((link) => (
             <a
               key={link.label}
@@ -124,7 +111,7 @@ export default function Contact() {
             </a>
           ))}
           <EmailLink />
-        </motion.div>
+        </div>
 
         <div className="text-center text-xs text-gray-600 font-mono">
           <p>&copy; {new Date().getFullYear()} So Fujino. Built with Next.js</p>

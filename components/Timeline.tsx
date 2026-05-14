@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import {
   Award,
   Trophy,
@@ -74,11 +71,6 @@ const getDotColor = (type: string, title: string): string => {
   return "#94a3b8"
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-}
-
 export default function Timeline() {
   const sortedItems = [...timelineItems].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -87,29 +79,17 @@ export default function Timeline() {
   return (
     <section id="timeline" className="py-24 px-4">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Timeline
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">経歴</p>
-        </motion.div>
+        </div>
 
         <div className="relative pb-4">
           <div className="pointer-events-none absolute left-[19px] -top-2 -bottom-2 w-px bg-gradient-to-b from-white/[0.14] via-white/[0.08] to-white/[0.04]" />
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ staggerChildren: 0.06 }}
-            className="space-y-1"
-          >
+          <div className="space-y-1">
             {sortedItems.map((item, i) => {
               const year = item.date.slice(0, 4)
               const previousYear = sortedItems[i - 1]?.date.slice(0, 4)
@@ -119,17 +99,14 @@ export default function Timeline() {
               return (
                 <div key={`${item.title}-${i}`}>
                   {showYear && (
-                    <motion.div variants={itemVariants} className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
+                    <div className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
                       <div className="w-10 h-10 rounded-full border border-white/[0.10] bg-navy-800 flex items-center justify-center">
                         <span className="text-sm font-mono font-bold text-cyan-400">{year}</span>
                       </div>
-                    </motion.div>
+                    </div>
                   )}
 
-                  <motion.div
-                    variants={itemVariants}
-                    className="group flex items-start gap-4 py-2 pl-1"
-                  >
+                  <div className="group flex items-start gap-4 py-2 pl-1">
                     <div className="relative flex-shrink-0 mt-1.5">
                       <div
                         className="w-3 h-3 rounded-full border-2 z-10 relative"
@@ -153,11 +130,11 @@ export default function Timeline() {
                         )}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               )
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -47,11 +47,6 @@ const typeConfig: Record<
   },
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-}
-
 const itemVariants = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -199,26 +194,14 @@ export default function Publications() {
   return (
     <section id="publications" className="py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Publications
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">業績</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8 rounded-xl border border-white/[0.06] bg-navy-800/30 p-4"
-        >
+        <div className="mb-8 rounded-xl border border-white/[0.06] bg-navy-800/30 p-4">
           <div className="grid gap-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="w-12 font-mono text-[11px] uppercase tracking-wider text-gray-600">
@@ -303,14 +286,9 @@ export default function Publications() {
               </button>
             )}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-5"
-        >
+        <div className="space-y-5">
           <AnimatePresence mode="popLayout">
             {filteredPubs.map((pub) => (
               <motion.div
@@ -325,7 +303,7 @@ export default function Publications() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

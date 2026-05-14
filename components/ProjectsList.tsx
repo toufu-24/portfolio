@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import React, { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 import Modal from "./ui/modal"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
@@ -73,16 +72,6 @@ const tagColors: Record<string, string> = {
   "活動": "border-amber-500/20 text-amber-400 bg-amber-500/10",
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-}
-
 export default function ProjectsList() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [markdownContent, setMarkdownContent] = useState<string>("")
@@ -109,30 +98,17 @@ export default function ProjectsList() {
   return (
     <section id="projects" className="py-24 px-4">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Projects
           </h2>
           <p className="text-gray-500 text-sm font-mono tracking-wider">プロジェクト</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[...projects].reverse().map((project) => (
-            <motion.div
+            <div
               key={project.title}
-              variants={cardVariants}
               onClick={() => {
                 setMarkdownContent("")
                 setSelectedProject(project)
@@ -169,9 +145,9 @@ export default function ProjectsList() {
                 </h3>
                 <p className="text-xs text-gray-500">{project.description}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         <Modal isOpen={!!selectedProject} onClose={closeModal}>
           <div className="prose prose-invert prose-sm max-w-none">
