@@ -31,6 +31,6 @@ export const publications: Publication[] = [
     year: 2025,
     month: 11,
     type: "conference",
-    presentation: "oral",
+    presentation: "poster",
   },
 ]
