@@ -35,6 +35,7 @@ const timelineItems: TimelineItem[] = [
   { date: "2025-12", title: "ICPC Asia Yokohama Regional Contest 56位", description: "チーム KATUNI として出場", type: "trophy" },
   { date: "2026-03", title: "東京農工大学卒業", description: "工学部 知能情報システム工学科", type: "school" },
   { date: "2026-04", title: "東京農工大学大学院入学", description: "工学府 知能情報システム工学専攻", type: "school" },
+  { date: "2026-04", title: "TOEIC Listening & Reading 800点", description: "Listening 430点 / Reading 370点", type: "award" },
 ]
 
 const getAtCoderColor = (title: string): string => {
