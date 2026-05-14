@@ -5,6 +5,7 @@ export type Publication = {
   year: number
   month?: number
   type: "journal" | "conference" | "preprint" | "thesis"
+  peerReviewed?: boolean
   presentation?: "oral" | "poster"
   url?: string
   doi?: string
@@ -19,6 +20,7 @@ export const publications: Publication[] = [
     year: 2026,
     month: 5,
     type: "conference",
+    peerReviewed: true,
     presentation: "oral",
     url: "https://ieeexplore.ieee.org/document/11461524",
     abstract:
