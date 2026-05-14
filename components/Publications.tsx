@@ -22,7 +22,10 @@ const itemVariants = {
 }
 
 export default function Publications() {
-  const sortedPubs = [...publications].sort((a, b) => b.year - a.year)
+  const sortedPubs = [...publications].sort((a, b) => {
+    if (b.year !== a.year) return b.year - a.year
+    return (b.month ?? 0) - (a.month ?? 0)
+  })
 
   return (
     <section id="publications" className="py-24 px-4">
@@ -75,7 +78,9 @@ export default function Publications() {
                           {pub.presentation === "oral" ? "Oral" : "Poster"}
                         </span>
                       )}
-                      <span className="text-xs font-mono text-gray-500">{pub.year}</span>
+                      <span className="text-xs font-mono text-gray-500">
+                        {pub.month ? `${pub.year}.${String(pub.month).padStart(2, "0")}` : pub.year}
+                      </span>
                     </div>
 
                     <h3 className="text-base font-semibold text-gray-200 mb-1 leading-snug">
