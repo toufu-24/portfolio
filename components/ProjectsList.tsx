@@ -64,6 +64,14 @@ const projects: Project[] = [
     tags: ["チーム開発"],
     date: "2026/3",
   },
+  {
+    title: "mahjong-calc-point",
+    thumbnail: "/projects/mahjong-calc-point.png",
+    description: "画像認識で手牌を読み取る麻雀点数計算アプリ",
+    detailPath: "mahjong-calc-point.md",
+    tags: ["個人開発"],
+    date: "2026/05",
+  },
 ]
 
 const tagColors: Record<string, string> = {
