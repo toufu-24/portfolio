@@ -41,15 +41,8 @@ export default function OptimizationLandscape() {
     let animationFrame = 0
     let startTime = performance.now()
 
-    const updateMotionPreference = () => {
-      reduceMotion = motionQuery.matches
-      startTime = performance.now()
-    }
-
-    updateMotionPreference()
-    motionQuery.addEventListener("change", updateMotionPreference)
-
     const draw = (time: number) => {
+      animationFrame = 0
       const rect = canvas.getBoundingClientRect()
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       const width = rect.width
@@ -151,13 +144,47 @@ export default function OptimizationLandscape() {
       ctx.fillText("x₁", plotX + plotW - 4, plotY + plotH + 17)
       ctx.fillText("x₂", plotX - 17, plotY + 5)
 
-      if (!reduceMotion) animationFrame = requestAnimationFrame(draw)
+      if (!reduceMotion && document.visibilityState !== "hidden") {
+        animationFrame = requestAnimationFrame(draw)
+      }
     }
 
-    animationFrame = requestAnimationFrame(draw)
+    const cancelFrame = () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+        animationFrame = 0
+      }
+    }
+
+    const scheduleFrame = () => {
+      if (!reduceMotion && document.visibilityState !== "hidden" && !animationFrame) {
+        animationFrame = requestAnimationFrame(draw)
+      }
+    }
+
+    const updateMotionPreference = () => {
+      reduceMotion = motionQuery.matches
+      startTime = performance.now()
+      cancelFrame()
+      if (reduceMotion) draw(performance.now())
+      else scheduleFrame()
+    }
+
+    const handleVisibilityChange = () => {
+      startTime = performance.now()
+      cancelFrame()
+      if (reduceMotion) draw(performance.now())
+      else scheduleFrame()
+    }
+
+    motionQuery.addEventListener("change", updateMotionPreference)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+    updateMotionPreference()
+
     return () => {
-      cancelAnimationFrame(animationFrame)
+      cancelFrame()
       motionQuery.removeEventListener("change", updateMotionPreference)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
     }
   }, [])
 
