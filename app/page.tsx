@@ -99,7 +99,7 @@ export default function Home() {
         <ProjectsList />
 
         <a className="text-link" href="https://github.com/toufu-24" target="_blank" rel="noopener noreferrer">
-          GitHub ですべての実装を見る <ArrowUpRight size={15} aria-hidden="true" />
+          GitHubで公開中のリポジトリを見る <ArrowUpRight size={15} aria-hidden="true" />
         </a>
       </section>
 

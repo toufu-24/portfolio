@@ -104,7 +104,7 @@ a {
   height: 68px;
   margin-inline: auto;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -899,6 +899,11 @@ a {
     height: 60px;
   }
 
+  .site-mark {
+    padding-left: 11px;
+    font-size: 15px;
+  }
+
   .desktop-nav {
     display: none;
   }
@@ -909,28 +914,46 @@ a {
 
   .hero {
     min-height: 0;
-    padding: 72px 0 390px;
+    padding: 58px 0 338px;
   }
 
   .hero h1 {
-    font-size: clamp(52px, 18vw, 76px);
+    font-size: clamp(50px, 17vw, 70px);
   }
 
   .hero-intro {
+    margin-top: 27px;
+    font-size: 15.5px;
     line-height: 1.85;
   }
 
+  .hero-intro-secondary {
+    margin-top: 15px;
+  }
+
+  .hero-contact-links {
+    margin-top: 27px;
+    gap: 16px;
+  }
+
   .landscape-frame {
-    bottom: 30px;
-    height: 330px;
+    right: -8%;
+    bottom: 22px;
+    left: -8%;
+    width: 116%;
+    height: 292px;
   }
 
   .content-section {
-    padding-block: 82px;
+    padding-block: 72px;
   }
 
   .section-heading {
-    margin-bottom: 42px;
+    margin-bottom: 34px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(35px, 11vw, 48px);
   }
 
   .research-list {
@@ -939,7 +962,7 @@ a {
 
   .research-row {
     min-height: 0;
-    padding-block: 34px;
+    padding-block: 30px;
     grid-template-columns: 34px minmax(0, 1fr);
     gap: 14px;
     border-right: 0;
@@ -949,14 +972,62 @@ a {
     border-right: 0;
   }
 
+  .research-copy h3 {
+    font-size: 21px;
+  }
+
+  .research-copy p {
+    max-width: 320px;
+    font-size: 14px;
+  }
+
   .publication-row {
-    padding: 27px 34px 27px 0;
+    padding: 24px 26px 24px 0;
     grid-template-columns: 58px minmax(0, 1fr);
     gap: 14px;
   }
 
   .publication-year {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .publication-filters {
+    margin-bottom: 28px;
+    padding-block: 15px 14px;
+  }
+
+  .publication-filter-line {
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .publication-filter-line + .publication-filter-line {
+    margin-top: 16px;
+  }
+
+  .publication-filter-name {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .publication-filter-button {
+    min-height: 33px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .publication-main h3 {
+    font-size: 17px;
+  }
+
+  .publication-main p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .publication-main .venue,
+  .publication-detail {
+    font-size: 12px !important;
   }
 
   .publication-note {
@@ -966,8 +1037,9 @@ a {
   }
 
   .project-row {
-    grid-template-columns: 100px minmax(0, 1fr);
-    gap: 13px;
+    padding-block: 20px;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
   }
 
   .project-action {
@@ -975,7 +1047,7 @@ a {
   }
 
   .project-image {
-    height: 72px;
+    height: 66px;
   }
 
   .project-copy h3,
@@ -985,7 +1057,9 @@ a {
 
   .project-copy p,
   .project-description {
-    display: none;
+    display: block;
+    font-size: 12.5px;
+    line-height: 1.55;
   }
 
   .profile-grid {
@@ -993,29 +1067,39 @@ a {
   }
 
   .timeline-row {
-    grid-template-columns: 125px minmax(0, 1fr);
+    grid-template-columns: 106px minmax(0, 1fr);
     gap: 12px;
+  }
+
+  .timeline time {
+    font-size: 11px;
+  }
+
+  .timeline p {
+    font-size: 13px;
+    line-height: 1.7;
   }
 
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding-bottom: 330px;
+    padding-top: 50px;
+    padding-bottom: 300px;
   }
 
   .landscape-frame {
-    bottom: 20px;
-    height: 280px;
+    bottom: 17px;
+    height: 260px;
   }
 
   .project-row {
-    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-columns: 70px minmax(0, 1fr);
     gap: 10px;
   }
 
   .project-image {
-    height: 58px;
+    height: 56px;
   }
 
   .project-meta {
@@ -1031,6 +1115,11 @@ a {
   .project-copy strong {
     margin-top: 5px;
     font-size: 15px;
+  }
+
+  .project-copy p,
+  .project-description {
+    font-size: 12px;
   }
 
   .timeline-row {
