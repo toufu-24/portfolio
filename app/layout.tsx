@@ -17,7 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://toufu24.dev"),
-  title: "藤野 創 | Mathematical Optimization & Signal Processing",
+  title: "藤野 創",
   description:
     "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。研究内容、業績、プロジェクトを紹介します。",
   icons: {
@@ -25,15 +25,15 @@ export const metadata: Metadata = {
     shortcut: "/icon.ico",
   },
   openGraph: {
-    title: "藤野 創 | Mathematical Optimization & Signal Processing",
+    title: "藤野 創",
     description: "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。",
     type: "website",
     locale: "ja_JP",
-    images: [{ url: "/og.png", width: 1728, height: 907, alt: "So Fujino — Mathematical Optimization & Signal Processing" }],
+    images: [{ url: "/og.png", width: 1728, height: 907, alt: "藤野 創のポートフォリオ" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "藤野 創 | Mathematical Optimization & Signal Processing",
+    title: "藤野 創",
     description: "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。",
     images: ["/og.png"],
   },
