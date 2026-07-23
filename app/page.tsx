@@ -13,26 +13,22 @@ const researchAreas = [
   {
     index: "01",
     title: "数理最適化",
-    description:
-      "問題がもつ構造を活かし、解の精度と計算効率を両立する反復アルゴリズムを設計します。凸最適化、近接法、貪欲法を中心に扱っています。",
+    description: "問題を数理モデルとして捉え，制約のもとで最適な解を導く理論と手法．",
   },
   {
     index: "02",
     title: "圧縮センシング",
-    description:
-      "観測数が未知変数より少ない劣決定系から、スパース性を手がかりに原信号を復元します。特に未知のブロック構造をもつ信号に関心があります。",
+    description: "少数の観測から，信号に潜むスパースな構造を復元する理論とアルゴリズム．",
   },
   {
     index: "03",
     title: "信号処理",
-    description:
-      "信号の生成過程と観測モデルを数式で記述し、ノイズや欠損に頑健な推定法へつなげます。理論と再現可能な数値実験を往復します。",
+    description: "観測データを数理的に解析し，必要な情報を抽出・復元する技術．",
   },
   {
     index: "04",
     title: "アルゴリズムとデータ構造",
-    description:
-      "問題の構造を見抜き、適切なアルゴリズムとデータ構造を選択・設計することに関心があります。競技プログラミングを通じて、計算量を意識した効率的な問題解決力を磨いています。",
+    description: "問題の構造を見極め，計算量を抑えて効率的に解くための方法．",
   },
 ]
 
@@ -84,6 +80,7 @@ export default function Home() {
               <div className="research-number">{area.index}</div>
               <div className="research-copy">
                 <h3>{area.title}</h3>
+                <span className="research-line" aria-hidden="true" />
                 <p>{area.description}</p>
               </div>
             </article>
