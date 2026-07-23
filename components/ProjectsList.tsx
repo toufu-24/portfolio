@@ -1,10 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import React, { useState, useEffect } from "react"
-import Modal from "./ui/modal"
+import { useEffect, useState } from "react"
+import { ArrowUpRight } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
+import Modal from "./ui/modal"
 
 type Project = {
   title: string
@@ -62,7 +63,7 @@ const projects: Project[] = [
     description: "ニューラルネットワークを構築・学習して戦う戦略ゲーム",
     detailPath: "Node-x-Node.md",
     tags: ["チーム開発"],
-    date: "2026/3",
+    date: "2026/03",
   },
   {
     title: "mahjong-calc-point",
@@ -74,122 +75,79 @@ const projects: Project[] = [
   },
 ]
 
-const tagColors: Record<string, string> = {
-  "個人開発": "border-blue-500/20 text-blue-400 bg-blue-500/10",
-  "チーム開発": "border-emerald-500/20 text-emerald-400 bg-emerald-500/10",
-  "活動": "border-amber-500/20 text-amber-400 bg-amber-500/10",
-}
-
 export default function ProjectsList() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [markdownContent, setMarkdownContent] = useState<string>("")
-  const loading = !!selectedProject && markdownContent === ""
+  const [markdownContent, setMarkdownContent] = useState("")
+  const loading = Boolean(selectedProject) && markdownContent === ""
 
   useEffect(() => {
-    if (selectedProject) {
-      fetch(`/projects/${selectedProject.detailPath}`)
-        .then((res) => res.text())
-        .then((text) => {
-          setMarkdownContent(text)
-        })
-        .catch(() => {
-          setMarkdownContent("Failed to load content.")
-        })
+    if (!selectedProject) return
+
+    let active = true
+    fetch(`/projects/${selectedProject.detailPath}`)
+      .then((response) => {
+        if (!response.ok) throw new Error("detail not found")
+        return response.text()
+      })
+      .then((text) => {
+        if (active) setMarkdownContent(text)
+      })
+      .catch(() => {
+        if (active) setMarkdownContent("詳細を読み込めませんでした。")
+      })
+
+    return () => {
+      active = false
     }
   }, [selectedProject])
 
-  const closeModal = () => {
-    setSelectedProject(null)
+  const openProject = (project: Project) => {
     setMarkdownContent("")
+    setSelectedProject(project)
   }
 
   return (
-    <section id="projects" className="py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Projects
-          </h2>
-          <p className="text-gray-500 text-sm font-mono tracking-wider">プロジェクト</p>
-        </div>
-
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {[...projects].reverse().map((project) => (
-            <div
-              key={project.title}
-              onClick={() => {
-                setMarkdownContent("")
-                setSelectedProject(project)
-              }}
-              className="group cursor-pointer rounded-xl border border-white/[0.06] bg-navy-800/50
-                         hover:border-white/[0.12] transition-all duration-300 overflow-hidden"
-            >
-              <div className="relative h-36 overflow-hidden">
-                <Image
-                  src={project.thumbnail}
-                  width={500}
-                  height={300}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-800/80 to-transparent" />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${tagColors[tag] || "border-gray-500/20 text-gray-400"}`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  <span className="text-[10px] font-mono text-gray-600 ml-auto">
-                    {project.date}
-                  </span>
-                </div>
-                <h3 className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-xs text-gray-500">{project.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <Modal isOpen={!!selectedProject} onClose={closeModal}>
-          <div className="prose prose-invert prose-sm max-w-none">
-            {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="w-6 h-6 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
-              </div>
-            ) : (
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  h1: ({ ...props }) => (
-                    <h1 className="text-2xl font-bold mt-4 mb-2 text-white" {...props} />
-                  ),
-                  h2: ({ ...props }) => (
-                    <h2 className="text-xl font-bold mt-4 mb-2 text-gray-200" {...props} />
-                  ),
-                  h3: ({ ...props }) => (
-                    <h3 className="text-lg font-bold mt-3 mb-1 text-gray-300" {...props} />
-                  ),
-                  p: ({ ...props }) => (
-                    <p className="text-sm text-gray-400 leading-relaxed" {...props} />
-                  ),
-                  a: ({ ...props }) => (
-                    <a className="text-cyan-400 hover:text-cyan-300 underline" {...props} />
-                  ),
-                }}
-              >
-                {markdownContent}
-              </ReactMarkdown>
-            )}
-          </div>
-        </Modal>
+    <>
+      <div className="project-list">
+        {[...projects].reverse().map((project) => (
+          <button
+            type="button"
+            className="project-row"
+            key={project.title}
+            onClick={() => openProject(project)}
+          >
+            <span className="project-image">
+              <Image src={project.thumbnail} alt="" width={160} height={104} />
+            </span>
+            <span className="project-copy">
+              <span className="project-meta">
+                <span>{project.tags.join("・")}</span>
+                <span>{project.date}</span>
+              </span>
+              <strong>{project.title}</strong>
+              <span className="project-description">{project.description}</span>
+            </span>
+            <span className="project-action">詳細 <ArrowUpRight size={15} aria-hidden="true" /></span>
+          </button>
+        ))}
       </div>
-    </section>
+
+      <Modal
+        isOpen={Boolean(selectedProject)}
+        onClose={() => {
+          setSelectedProject(null)
+          setMarkdownContent("")
+        }}
+      >
+        {selectedProject && <p className="modal-project-label">{selectedProject.date} · {selectedProject.tags.join("・")}</p>}
+        {loading ? (
+          <p className="modal-loading">読み込み中…</p>
+        ) : (
+          <div className="project-markdown">
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
+          </div>
+        )}
+      </Modal>
+    </>
   )
 }

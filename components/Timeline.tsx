@@ -1,16 +1,10 @@
-import {
-  Award,
-  Trophy,
-  Cake,
-  School,
-  GraduationCap,
-} from "lucide-react"
+import type { CSSProperties } from "react"
 
 type TimelineItem = {
   date: string
   title: string
   description: string
-  type: "birth" | "school" | "trophy" | "award" | "research"
+  type: "birth" | "school" | "trophy" | "award"
 }
 
 const timelineItems: TimelineItem[] = [
@@ -35,108 +29,34 @@ const timelineItems: TimelineItem[] = [
   { date: "2026-04", title: "TOEIC Listening & Reading 800点", description: "Listening 430点 / Reading 370点", type: "award" },
 ]
 
-const getAtCoderColor = (title: string): string => {
-  if (title.includes("灰色")) return "#808080"
-  if (title.includes("茶色")) return "#b45309"
-  if (title.includes("緑色")) return "#22c55e"
-  if (title.includes("水色")) return "#67e8f9"
-  if (title.includes("青色")) return "#3b82f6"
-  return "#00d4ff"
-}
-
-const getIcon = (type: string, title: string) => {
-  switch (type) {
-    case "birth":
-      return <Cake className="w-5 h-5" />
-    case "school":
-      return title.includes("入学") ? <School className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />
-    case "trophy":
-      return <Trophy className="w-5 h-5" />
-    case "award":
-      return <Award className="w-5 h-5" />
-    case "research":
-      return <GraduationCap className="w-5 h-5" />
-    default:
-      return <Award className="w-5 h-5" />
-  }
-}
-
-const getDotColor = (type: string, title: string): string => {
-  if (type === "trophy" && title.includes("AtCoder")) return getAtCoderColor(title)
-  if (type === "trophy" && title.includes("ICPC")) return "#f59e0b"
-  if (type === "birth") return "#ec4899"
-  if (type === "school") return "#14b8a6"
-  if (type === "award") return "#eab308"
-  if (type === "research") return "#8b5cf6"
-  return "#94a3b8"
+function accent(item: TimelineItem) {
+  if (item.title.includes("灰色")) return "#808080"
+  if (item.title.includes("茶色")) return "#9a5b2f"
+  if (item.title.includes("緑色")) return "#2f7d4e"
+  if (item.title.includes("水色")) return "#2b7f91"
+  if (item.title.includes("青色")) return "#315f9a"
+  if (item.type === "school") return "#174c37"
+  if (item.type === "award") return "#8a6a24"
+  if (item.type === "trophy") return "#7d642a"
+  return "#8b948f"
 }
 
 export default function Timeline() {
-  const sortedItems = [...timelineItems].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  )
-
   return (
-    <section id="timeline" className="py-24 px-4">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            Timeline
-          </h2>
-          <p className="text-gray-500 text-sm font-mono tracking-wider">経歴</p>
-        </div>
-
-        <div className="relative pb-4">
-          <div className="pointer-events-none absolute left-[19px] -top-2 -bottom-2 w-px bg-gradient-to-b from-white/[0.14] via-white/[0.08] to-white/[0.04]" />
-
-          <div className="space-y-1">
-            {sortedItems.map((item, i) => {
-              const year = item.date.slice(0, 4)
-              const previousYear = sortedItems[i - 1]?.date.slice(0, 4)
-              const showYear = year !== previousYear
-              const dotColor = getDotColor(item.type, item.title)
-
-              return (
-                <div key={`${item.title}-${i}`}>
-                  {showYear && (
-                    <div className="flex items-center gap-3 mb-3 mt-6 first:mt-0">
-                      <div className="w-10 h-10 rounded-full border border-white/[0.10] bg-navy-800 flex items-center justify-center">
-                        <span className="text-sm font-mono font-bold text-cyan-400">{year}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="group flex items-start gap-4 py-2 pl-1">
-                    <div className="relative flex-shrink-0 mt-1.5">
-                      <div
-                        className="w-3 h-3 rounded-full border-2 z-10 relative"
-                        style={{ borderColor: dotColor, backgroundColor: `${dotColor}33` }}
-                      />
-                    </div>
-
-                    <div className="flex-1 pb-2">
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <span style={{ color: dotColor }} className="opacity-70">
-                          {getIcon(item.type, item.title)}
-                        </span>
-                        <h3 className="text-base font-semibold text-gray-200 group-hover:text-cyan-400 transition-colors">
-                          {item.title}
-                        </h3>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-mono text-gray-600">{item.date}</span>
-                        {item.description && (
-                          <span className="text-sm text-gray-500">{item.description}</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+    <div className="timeline" aria-label="学歴と活動歴">
+      {timelineItems.map((item) => (
+        <div
+          className="timeline-row"
+          key={`${item.date}-${item.title}`}
+          style={{ "--timeline-accent": accent(item) } as CSSProperties}
+        >
+          <time>{item.date}</time>
+          <div>
+            <h3>{item.title}</h3>
+            {item.description && <p>{item.description}</p>}
           </div>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
   )
 }
