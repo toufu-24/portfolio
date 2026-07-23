@@ -15,7 +15,7 @@
   --green-soft: #e6ede9;
   --radius-sm: 6px;
   --radius-md: 8px;
-  --content: 1180px;
+  --content: 1080px;
 }
 
 * {
@@ -58,7 +58,7 @@ a {
 }
 
 .section-shell {
-  width: min(calc(100% - 48px), var(--content));
+  width: min(calc(100% - 80px), var(--content));
   margin-inline: auto;
 }
 
@@ -100,7 +100,7 @@ a {
 }
 
 .header-inner {
-  width: min(calc(100% - 48px), var(--content));
+  width: min(calc(100% - 80px), var(--content));
   height: 68px;
   margin-inline: auto;
   display: flex;

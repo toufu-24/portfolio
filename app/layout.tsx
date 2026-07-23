@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: "藤野 創 | Mathematical Optimization & Signal Processing",
   description:
     "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。研究内容、業績、プロジェクトを紹介します。",
+  icons: {
+    icon: "/icon.ico",
+    shortcut: "/icon.ico",
+  },
   openGraph: {
     title: "藤野 創 | Mathematical Optimization & Signal Processing",
     description: "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。",
