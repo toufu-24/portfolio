@@ -1,17 +1,17 @@
 import { Menu } from "lucide-react"
 
 const navItems = [
-  { label: "研究", href: "#research" },
+  { label: "関心領域", href: "#research" },
   { label: "研究業績", href: "#publications" },
   { label: "プロジェクト", href: "#projects" },
-  { label: "経歴", href: "#profile" },
+  { label: "経歴と活動", href: "#profile" },
 ]
 
 export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <a className="site-mark" href="#top" aria-label="藤野創 ポートフォリオ トップへ">
+        <a className="site-mark" href="#top" aria-label="藤野 創のポートフォリオ トップへ">
           <span>藤野 創</span>
         </a>
 

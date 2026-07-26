@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://toufu24.dev"),
   title: "藤野 創",
   description:
-    "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。研究内容、業績、プロジェクトを紹介します。",
+    "数理最適化、圧縮センシング、信号処理を研究する藤野 創のポートフォリオ。研究内容、業績、プロジェクトを紹介します。",
   icons: {
     icon: "/icon.ico",
     shortcut: "/icon.ico",
   },
   openGraph: {
     title: "藤野 創",
-    description: "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。",
+    description: "数理最適化、圧縮センシング、信号処理を研究する藤野 創のポートフォリオ。",
     type: "website",
     locale: "ja_JP",
     images: [{ url: "/og.png", width: 1728, height: 907, alt: "藤野 創のポートフォリオ" }],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "藤野 創",
-    description: "数理最適化、圧縮センシング、信号処理を研究する藤野創のポートフォリオ。",
+    description: "数理最適化、圧縮センシング、信号処理を研究する藤野 創のポートフォリオ。",
     images: ["/og.png"],
   },
 }
